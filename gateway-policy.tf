@@ -53,11 +53,10 @@ locals {
     for line in split("\n", local.adaway_hosts) : line
     if length(trimspace(line)) > 0 && !startswith(line, "#")
   ]
-
-  # 3. Filter out lines starting with "localhost" or "::1 localhost"
+  # 3. Filter out lines starting with "localhost", "::1 localhost", or containing "localhost"
   adaway_lines_filtered = [
     for line in local.adaway_lines :
-    line if !startswith(line, "localhost") && !startswith(line, "::1 localhost")
+    line if !contains(lower(line), "localhost") && !startswith(line, "::1")
   ]
 
   # 4. Extract domain names (remove "127.0.0.1 " prefix)
