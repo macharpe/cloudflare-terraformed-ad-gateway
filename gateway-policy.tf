@@ -45,7 +45,7 @@ resource "cloudflare_zero_trust_gateway_policy" "block_ads" {
 # ==============================================================================
 locals {
   # 1. Read the AdAway hosts file
-  adaway_hosts_file = "${path.module}/lists/pihole_domain_list.txt" # Path to your downloaded hosts.txt
+  adaway_hosts_file = "${path.module}/hosts.txt" # Path to your downloaded hosts.txt
   adaway_hosts      = file(local.adaway_hosts_file)
 
   # 2. Split into lines, remove empty lines, and comments
@@ -54,17 +54,23 @@ locals {
     if length(trimspace(line)) > 0 && !startswith(line, "#")
   ]
 
-  # 3. Extract domain names (remove "127.0.0.1 " prefix)
-  adaway_domains = [
+  # 3. Filter out lines starting with "localhost" or "::1 localhost"
+  adaway_lines_filtered = [
     for line in local.adaway_lines :
-    trim(replace(line, "/^127\\.0\\.0\\.1\\s+/", ""), " \t\r\n")
+    line if !startswith(line, "localhost") && !startswith(line, "::1 localhost")
   ]
 
-  # 4. Chunk the list into smaller lists of 1000 entries each
+  # 4. Extract domain names (remove "127.0.0.1 " prefix)
+  adaway_domains = [
+    for line in local.adaway_lines_filtered :
+    trim(replace(line, "127.0.0.1 ", ""), " \t\r\n")
+  ]
+
+  # 5. Chunk the list into smaller lists of 1000 entries each
   chunk_size           = 1000
   adaway_domain_chunks = chunklist(local.adaway_domains, local.chunk_size)
 
-  # 5. Get the number of chunks created
+  # 6. Get the number of chunks created
   adaway_chunk_count = length(local.adaway_domain_chunks)
 }
 
