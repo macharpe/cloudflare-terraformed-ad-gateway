@@ -67,7 +67,7 @@ variable "cloudflare_account_id" {
 }
 
 
-resource "cloudflare_zero_trust_list " "pihole_domain_lists" {
+resource "cloudflare_zero_trust_list" "pihole_domain_lists" {
   account_id = var.cloudflare_account_id
 
   for_each = {
