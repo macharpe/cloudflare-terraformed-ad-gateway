@@ -50,8 +50,11 @@ locals {
   # Parse the file and create a list, one item per line
   pihole_domain_list = split("\n", file(local.pihole_domain_list_file))
 
-  # Remove empty lines
-  pihole_domain_list_clean = [for x in local.pihole_domain_list : x if x != ""]
+  # Remove empty lines and lines starting with '#'
+  pihole_domain_list_clean = [
+    for line in local.pihole_domain_list :
+    line if line != "" && !starts_with(line, "#")
+  ]
 
   # Filter out invalid domain names
   pihole_domain_list_valid = [
@@ -92,4 +95,8 @@ resource "cloudflare_zero_trust_list" "pihole_domain_lists" {
       description = "Pi-hole blocked domain"
     }
   ]
+}
+
+output "valid_domains" {
+  value = local.pihole_domain_list_valid
 }
