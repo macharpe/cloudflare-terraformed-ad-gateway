@@ -16,8 +16,8 @@ locals {
 resource "cloudflare_zero_trust_gateway_policy" "block_ads" {
   account_id = var.cloudflare_account_id
 
-  name        = "Block Ads"
-  description = "Block Ads domains"
+  name        = "Block Ads Terraform"
+  description = "Block Ads domains generated via Terraform"
 
   enabled    = true
   precedence = 11
@@ -27,9 +27,9 @@ resource "cloudflare_zero_trust_gateway_policy" "block_ads" {
   action  = "block"
   traffic = local.pihole_ad_filter
 
-  #  rule_settings {
-  #    block_page_enabled = false
-  #  }
+  #    rule_settings {
+  #      block_page_enabled = false
+  #    }
 }
 
 
