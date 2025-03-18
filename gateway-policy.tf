@@ -44,30 +44,28 @@ resource "cloudflare_zero_trust_gateway_policy" "block_ads" {
 #   - the file can be updated periodically via Github Actions (see README)
 # ==============================================================================
 locals {
-  # The full path of the list holding the domain list
-  pihole_domain_list_file = "${path.module}/lists/pihole_domain_list.txt"
+  # 1. Read the AdAway hosts file
+  adaway_hosts_file = "${path.module}/lists/pihole_domain_list.txt" # Path to your downloaded hosts.txt
+  adaway_hosts      = file(local.adaway_hosts_file)
 
-  # Parse the file and create a list, one item per line
-  pihole_domain_list = split("\n", file(local.pihole_domain_list_file))
-
-  # Remove empty lines and lines starting with '#'
-  pihole_domain_list_clean = [
-    for line in local.pihole_domain_list :
-    line if line != "" && !startswith(line, "#")
+  # 2. Split into lines, remove empty lines, and comments
+  adaway_lines = [
+    for line in split("\n", local.adaway_hosts) : line
+    if length(trimspace(line)) > 0 && !startswith(line, "#")
   ]
 
-  # Filter out invalid domain names
-  pihole_domain_list_valid = [
-    for x in local.pihole_domain_list_clean :
-    x if can(regex("^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$", x))
+  # 3. Extract domain names (remove "127.0.0.1 " prefix)
+  adaway_domains = [
+    for line in local.adaway_lines :
+    trim(regex_replace(line, "^127\\.0\\.0\\.1\\s+", ""), " \t\r\n")
   ]
 
-  # Use chunklist to split a list into fixed-size chunks
-  # It returns a list of lists
-  pihole_aggregated_lists = chunklist(local.pihole_domain_list_clean, 1000)
+  # 4. Chunk the list into smaller lists of 1000 entries each
+  chunk_size           = 1000
+  adaway_domain_chunks = chunklist(local.adaway_domains, local.chunk_size)
 
-  # Get the number of lists (chunks) created
-  pihole_list_count = length(local.pihole_aggregated_lists)
+  # 5. Get the number of chunks created
+  adaway_chunk_count = length(local.adaway_domain_chunks)
 }
 
 variable "cloudflare_account_id" {
@@ -80,8 +78,8 @@ resource "cloudflare_zero_trust_list" "pihole_domain_lists" {
   account_id = var.cloudflare_account_id
 
   for_each = {
-    for i in range(0, local.pihole_list_count) :
-    i => element(local.pihole_aggregated_lists, i)
+    for i in range(0, local.adaway_chunk_count) :
+    i => element(local.adaway_domain_chunks, i)
   }
 
   name = "pihole_domain_list_${each.key}"
@@ -97,6 +95,10 @@ resource "cloudflare_zero_trust_list" "pihole_domain_lists" {
   ]
 }
 
-output "valid_domains" {
-  value = local.pihole_domain_list_valid
+output "adaway_domain_chunks" {
+  value = local.adaway_domain_chunks
+}
+
+output "adaway_chunk_count" {
+  value = local.adaway_chunk_count
 }
