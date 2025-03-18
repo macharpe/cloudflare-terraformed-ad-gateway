@@ -75,7 +75,15 @@ resource "cloudflare_zero_trust_list" "pihole_domain_lists" {
     i => element(local.pihole_aggregated_lists, i)
   }
 
-  name  = "pihole_domain_list_${each.key}"
-  type  = "DOMAIN"
-  items = each.value
+  name = "pihole_domain_list_${each.key}"
+  type = "DOMAIN"
+
+  # Transform the list of strings into a list of objects
+  items = [
+    for domain in each.value :
+    {
+      value       = domain
+      description = "Pi-hole blocked domain"
+    }
+  ]
 }
