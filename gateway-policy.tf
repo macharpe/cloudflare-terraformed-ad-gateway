@@ -45,7 +45,7 @@ resource "cloudflare_zero_trust_gateway_policy" "block_ads" {
 # ==============================================================================
 locals {
   # 1. Read the AdAway hosts file
-  adaway_hosts_file = "${path.module}/hosts.txt" # Path to your downloaded hosts.txt
+  adaway_hosts_file = "${path.module}/lists/pihole_domain_list.txt" # Path to your downloaded hosts.txt
   adaway_hosts      = file(local.adaway_hosts_file)
 
   # 2. Split into lines, remove empty lines, and comments
