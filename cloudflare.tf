@@ -18,15 +18,15 @@ provider "cloudflare" {
 }
 
 # Create a DNS record
-#resource "cloudflare_dns_record" "test" {
-#  content  = "hermes-wpbmcktmmc.dynamic-m.com"
-#  name     = "test.macharpe.com"
-#  proxied  = true
-#  ttl      = 1
-#  type     = "CNAME"
-#  zone_id  = "c4f7bafc6fbeb59e591d017dbaf910ba"
-#  settings = {}
-#}
+resource "cloudflare_dns_record" "test" {
+  content  = "hermes-wpbmcktmmc.dynamic-m.com"
+  name     = "test.macharpe.com"
+  proxied  = true
+  ttl      = 1
+  type     = "CNAME"
+  zone_id  = "c4f7bafc6fbeb59e591d017dbaf910ba"
+  settings = {}
+}
 
 
 resource "cloudflare_dns_record" "terraform_managed_resource_0e2cedc6ee2f641fe335dca9177e6ae6" {
