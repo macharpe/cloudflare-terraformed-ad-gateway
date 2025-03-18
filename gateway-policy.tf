@@ -3,7 +3,7 @@
 # ==============================================================================
 locals {
   # Iterate through each pihole_domain_list resource and extract its ID
-  pihole_domain_lists = [for k, v in cloudflare_teams_list.pihole_domain_lists : v.id]
+  pihole_domain_lists = [for k, v in cloudflare_zero_trust_list.pihole_domain_lists : v.id]
 
   # Format the values: remove dashes and prepend $
   pihole_domain_lists_formatted = [for v in local.pihole_domain_lists : format("$%s", replace(v, "-", ""))]
@@ -13,7 +13,7 @@ locals {
   pihole_ad_filter  = join(" or ", local.pihole_ad_filters)
 }
 
-resource "cloudflare_teams_rule" "block_ads" {
+resource "cloudflare_zero_trust_gateway_policy" "block_ads" {
   account_id = var.cloudflare_account_id
 
   name        = "Block Ads"
@@ -27,9 +27,9 @@ resource "cloudflare_teams_rule" "block_ads" {
   action  = "block"
   traffic = local.pihole_ad_filter
 
-  rule_settings {
-    block_page_enabled = false
-  }
+  #  rule_settings {
+  #    block_page_enabled = false
+  #  }
 }
 
 
@@ -67,15 +67,15 @@ variable "cloudflare_account_id" {
 }
 
 
-resource "cloudflare_list" "pihole_domain_lists" {
+resource "cloudflare_zero_trust_list " "pihole_domain_lists" {
   account_id = var.cloudflare_account_id
-  kind       = "domain"
 
   for_each = {
     for i in range(0, local.pihole_list_count) :
     i => element(local.pihole_aggregated_lists, i)
   }
 
-  name = "pihole_domain_list_${each.key}"
-  #  items = each.value
+  name  = "pihole_domain_list_${each.key}"
+  type  = "DOMAIN"
+  items = each.value
 }
