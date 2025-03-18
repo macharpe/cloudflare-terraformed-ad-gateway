@@ -53,6 +53,12 @@ locals {
   # Remove empty lines
   pihole_domain_list_clean = [for x in local.pihole_domain_list : x if x != ""]
 
+  # Filter out invalid domain names
+  pihole_domain_list_valid = [
+    for x in local.pihole_domain_list_clean :
+    x if can(regex("^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$", x))
+  ]
+
   # Use chunklist to split a list into fixed-size chunks
   # It returns a list of lists
   pihole_aggregated_lists = chunklist(local.pihole_domain_list_clean, 1000)
