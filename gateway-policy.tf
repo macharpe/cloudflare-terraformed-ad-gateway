@@ -53,7 +53,7 @@ locals {
   # Remove empty lines and lines starting with '#'
   pihole_domain_list_clean = [
     for line in local.pihole_domain_list :
-    line if line != "" && !starts_with(line, "#")
+    line if line != "" && !startswith(line, "#")
   ]
 
   # Filter out invalid domain names
