@@ -61,16 +61,21 @@ locals {
   pihole_list_count = length(local.pihole_aggregated_lists)
 }
 
+variable "cloudflare_account_id" {
+  type        = string
+  description = "The ID of the Cloudflare account"
+}
 
-resource "cloudflare_teams_list" "pihole_domain_lists" {
-  account_id = local.cloudflare_account_id
+
+resource "cloudflare_list" "pihole_domain_lists" {
+  account_id = var.cloudflare_account_id
+  kind       = "domain"
 
   for_each = {
     for i in range(0, local.pihole_list_count) :
     i => element(local.pihole_aggregated_lists, i)
   }
 
-  name  = "pihole_domain_list_${each.key}"
-  type  = "DOMAIN"
-  items = each.value
+  name = "pihole_domain_list_${each.key}"
+  #  items = each.value
 }
