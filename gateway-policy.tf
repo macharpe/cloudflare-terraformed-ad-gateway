@@ -57,7 +57,7 @@ locals {
   # 3. Extract domain names (remove "127.0.0.1 " prefix)
   adaway_domains = [
     for line in local.adaway_lines :
-    trim(regex_replace(line, "^127\\.0\\.0\\.1\\s+", ""), " \t\r\n")
+    trim(replace(line, "/^127\\.0\\.0\\.1\\s+/", ""), " \t\r\n")
   ]
 
   # 4. Chunk the list into smaller lists of 1000 entries each
