@@ -21,6 +21,10 @@ jobs:
       - name: 📂 Checkout Branch
         uses: actions/checkout@v3.3.0
 
+      - name: Folder?
+        run: |
+          echo "FOLDER: $FOLDER"
+
       #
       # Fetch domain list
       #
