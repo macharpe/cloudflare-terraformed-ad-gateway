@@ -1,3 +1,5 @@
+# This is my Terraform project
+
 terraform {
   cloud {
     organization = "Terraform-macharpe"
