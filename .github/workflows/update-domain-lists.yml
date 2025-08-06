@@ -1,4 +1,4 @@
-name: 'Update Domain Lists (Enhanced)'
+name: 'Update Domain Lists'
 
 on:
   workflow_dispatch:
@@ -59,8 +59,8 @@ jobs:
               if wget --quiet --timeout=30 "$url" -O "temp_$source.txt"; then
                 echo "[*] Processing $source..."
                 
-                # Extract domains from hosts format
-                grep "^127\.0\.0\.1" "temp_$source.txt" | \
+                # Extract domains from hosts format (both 127.0.0.1 and 0.0.0.0)
+                grep -E "^(127\.0\.0\.1|0\.0\.0\.0)" "temp_$source.txt" | \
                   awk '{print $2}' | \
                   grep -v "localhost" | \
                   grep -E '^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$' | \
