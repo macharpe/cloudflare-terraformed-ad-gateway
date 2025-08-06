@@ -7,6 +7,18 @@ variable "cloudflare_account_id" {
   }
 }
 
+variable "cloudflare_email" {
+  type        = string
+  description = "The email address associated with the Cloudflare account"
+  sensitive   = true
+}
+
+variable "cloudflare_api_key" {
+  type        = string
+  description = "The API key for the Cloudflare account"
+  sensitive   = true
+}
+
 variable "chunk_size" {
   type        = number
   description = "Number of domains per list chunk"

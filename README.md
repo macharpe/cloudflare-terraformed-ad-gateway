@@ -59,9 +59,17 @@ The solution consists of:
    - Create or use workspace: `terraform-dns-ad-gateway`
    - Set up workspace variables:
    ```bash
-   CLOUDFLARE_API_TOKEN=your_api_token
-   cloudflare_account_id=your_account_id
+   # Terraform Variables (TF_VAR_ prefix)
+   TF_VAR_cloudflare_account_id=your_account_id
+   
+   # Cloudflare Provider Variables (for authentication)
+   TF_VAR_cloudflare_email=your_cloudflare_email
+   TF_VAR_cloudflare_api_key=your_api_key
    ```
+   
+   **Note**: You'll need to rename existing variables in Terraform Cloud:
+   - `CLOUDFLARE_EMAIL` → `TF_VAR_cloudflare_email`
+   - `CLOUDFLARE_API_KEY` → `TF_VAR_cloudflare_api_key`
 
 2. **Update Domain Lists**:
    - Place your ad-blocking domains in `lists/pihole_domain_list.txt`
