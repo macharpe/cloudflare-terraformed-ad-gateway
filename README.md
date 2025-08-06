@@ -64,11 +64,6 @@ The solution consists of:
    | `cloudflare_account_id` | Terraform variable | No | Your Cloudflare account ID |
    | `cloudflare_email` | Terraform variable | Yes | Your Cloudflare email address |
    | `cloudflare_api_key` | Terraform variable | Yes | Your Cloudflare API key |
-   
-   **Migration**: You can now safely delete these old variables:
-   - ❌ Delete: `CLOUDFLARE_EMAIL` (environment variable)
-   - ❌ Delete: `CLOUDFLARE_API_KEY` (environment variable)
-   - ❌ Delete: `TF_VAR_cloudflare_account_id` (environment variable)
 
 2. **Update Domain Lists**:
    - Place your ad-blocking domains in `lists/pihole_domain_list.txt`
