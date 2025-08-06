@@ -56,7 +56,7 @@ output "domain_sources_status" {
       domains_found = length([
         for line in split("\n", try(chomp(data.http.domain_sources[name].response_body), "")) :
         line if config.format == "hosts" ?
-        (can(regex("^127\\.0\\.0\\.1\\s+[^\\s]+", line)) &&
+        ((can(regex("^127\\.0\\.0\\.1\\s+[^\\s]+", line)) || can(regex("^0\\.0\\.0\\.0\\s+[^\\s]+", line))) &&
           !strcontains(line, "localhost") &&
           !startswith(trimspace(line), "#") &&
         trimspace(line) != "") :

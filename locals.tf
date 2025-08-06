@@ -21,10 +21,11 @@ locals {
   remote_domains = var.use_remote_sources ? flatten([
     for name, config in local.enabled_sources : [
       for line in split("\n", try(chomp(data.http.domain_sources[name].response_body), "")) :
-      trimspace(config.format == "hosts" ? replace(line, "127.0.0.1 ", "") : line)
+      trimspace(config.format == "hosts" ? 
+        replace(replace(line, "127.0.0.1 ", ""), "0.0.0.0 ", "") : line)
       if try(data.http.domain_sources[name].response_body, null) != null &&
       config.format == "hosts" ?
-      (can(regex("^127\\.0\\.0\\.1\\s+[^\\s]+", line)) &&
+      ((can(regex("^127\\.0\\.0\\.1\\s+[^\\s]+", line)) || can(regex("^0\\.0\\.0\\.0\\s+[^\\s]+", line))) &&
         !strcontains(line, "localhost") &&
         !startswith(trimspace(line), "#") &&
         trimspace(line) != "") :
