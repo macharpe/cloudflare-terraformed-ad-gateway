@@ -26,114 +26,19 @@ This project implements DNS-based ad filtering by leveraging Cloudflare's Zero T
 ## Architecture
 
 ```mermaid
-graph TB
-    %% Domain Sources
-    AdAway["🌐 AdAway<br/>hosts.txt<br/>(~6,500 domains)"]
-    EasyList["🌐 EasyList<br/>someonewhocares.org<br/>(~11,800 domains)"]
-    StevenBlack["🌐 StevenBlack<br/>unified hosts<br/>(~100k+ domains)"]
-    LocalFile["📁 Local File<br/>lists/pihole_domain_list.txt<br/>(manual domains)"]
-    
-    %% GitHub Components
-    GitHubRepo["📦 GitHub Repository<br/>cloudflare-terraformed-ad-gateway"]
-    GitHubActions["⚙️ GitHub Actions<br/>Update Domain Lists<br/>(Monthly/Manual)"]
-    
-    %% Terraform Components
-    TerraformCloud["☁️ Terraform Cloud<br/>terraform-dns-ad-gateway<br/>workspace"]
-    TerraformCode["📋 Terraform Code<br/>• HTTP Data Sources<br/>• Domain Processing<br/>• Zero Trust Lists<br/>• Gateway Policy"]
-    
-    %% Cloudflare Components
-    CloudflareAPI["🔗 Cloudflare API<br/>Authentication:<br/>email + api_key"]
-    ZeroTrustLists["📋 Zero Trust Lists<br/>ad-block-list-chunk-XX<br/>(max 1000 domains each)"]
-    GatewayPolicy["🛡️ Gateway Policy<br/>DNS-Block: Ads Gateway Terraform<br/>(Blocks DNS queries)"]
-    DNSFiltering["🌍 DNS Filtering<br/>Network-wide ad blocking<br/>for all devices"]
-    
-    %% Data Flow
-    AdAway --> GitHubActions
-    EasyList --> GitHubActions
-    StevenBlack --> GitHubActions
-    LocalFile --> TerraformCode
-    
-    GitHubActions --> |"Fetches & combines<br/>domain lists"| LocalFile
-    GitHubActions --> |"Creates PR with<br/>updated domains"| GitHubRepo
-    
-    GitHubRepo --> |"VCS Integration<br/>Auto-triggers on PR merge"| TerraformCloud
-    TerraformCode --> |"HTTP Data Sources<br/>fetch remote lists"| AdAway
-    TerraformCode --> |"HTTP Data Sources<br/>fetch remote lists"| EasyList
-    TerraformCode --> |"HTTP Data Sources<br/>fetch remote lists"| StevenBlack
-    
-    TerraformCloud --> |"Processes domains<br/>& manages infrastructure"| TerraformCode
-    TerraformCode --> |"API calls to create<br/>lists and policies"| CloudflareAPI
-    CloudflareAPI --> |"Creates chunked<br/>domain lists"| ZeroTrustLists
-    CloudflareAPI --> |"Creates blocking<br/>policy"| GatewayPolicy
-    
-    ZeroTrustLists --> |"Referenced by<br/>gateway policy"| GatewayPolicy
-    GatewayPolicy --> |"Blocks DNS queries<br/>to listed domains"| DNSFiltering
-    
-    %% Styling
-    classDef source fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    classDef github fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-    classDef terraform fill:#fff3e0,stroke:#e65100,stroke-width:2px
-    classDef cloudflare fill:#fff8e1,stroke:#f57f17,stroke-width:2px
-    
-    class AdAway,EasyList,StevenBlack,LocalFile source
-    class GitHubRepo,GitHubActions github
-    class TerraformCloud,TerraformCode terraform
-    class CloudflareAPI,ZeroTrustLists,GatewayPolicy,DNSFiltering cloudflare
+graph LR
+    A[📡 Domain Sources<br/>AdAway, EasyList, etc.] --> B[📦 GitHub Actions<br/>Monthly Updates]
+    B --> C[☁️ Terraform Cloud<br/>Infrastructure Management]
+    C --> D[🛡️ Cloudflare Gateway<br/>DNS Filtering]
+    D --> E[🌐 Your Network<br/>Ad-free Browsing]
 ```
 
-### Component Overview
-
-- **Domain Sources**: Multiple remote and local domain sources (AdAway, EasyList, etc.)
-- **Domain Processing**: Automated fetching and processing of hosts files from HTTP sources
-- **Zero Trust Lists**: Creates multiple Cloudflare lists (chunked to 1000 domains each)
-- **Gateway Policy**: Implements a blocking policy that matches against all domain lists
-- **GitHub Actions**: Automated workflow for updating domain lists
-- **Terraform Cloud**: Manages state and execution remotely
-
-## How It Works
-
-```mermaid
-sequenceDiagram
-    participant User as 👤 User
-    participant GHA as ⚙️ GitHub Actions
-    participant Repo as 📦 GitHub Repo
-    participant TC as ☁️ Terraform Cloud
-    participant TF as 📋 Terraform Code
-    participant CF as 🔗 Cloudflare API
-    participant DNS as 🌍 DNS Filtering
-
-    Note over User,DNS: Monthly Automated Update Flow
-    
-    GHA->>+AdAway: Fetch hosts.txt (~6,500 domains)
-    GHA->>+EasyList: Fetch hosts (~11,800 domains)
-    GHA->>GHA: Process & combine domains
-    GHA->>Repo: Create PR with updated domain list
-    
-    Note over User,DNS: Manual Trigger or PR Merge
-    
-    User->>Repo: Merge PR (or manual trigger)
-    Repo->>TC: VCS integration triggers plan
-    TC->>+TF: Execute Terraform plan/apply
-    TF->>+AdAway: HTTP data source fetch
-    TF->>+EasyList: HTTP data source fetch  
-    TF->>TF: Process domains (both formats)
-    TF->>TF: Chunk domains (1000 per list)
-    TF->>+CF: Create/update Zero Trust lists
-    TF->>+CF: Create/update Gateway policy
-    CF->>DNS: Enable DNS blocking
-    DNS-->>User: Network-wide ad blocking active
-```
-
-### Step-by-Step Process
-
-1. **Source Configuration**: Configure domain sources in `variables.tf` (remote HTTP sources and local files)
-2. **Remote Fetching**: HTTP data sources automatically fetch domain lists from configured URLs
-3. **Domain Processing**: Processes both local (`lists/pihole_domain_list.txt`) and remote sources
-4. **Format Support**: Handles both `127.0.0.1` and `0.0.0.0` hosts file formats
-5. **List Chunking**: Automatically splits domains into groups of 1000 (Cloudflare's limit)
-6. **Zero Trust Lists**: Creates multiple `cloudflare_zero_trust_list` resources
-7. **Gateway Policy**: Deploys a policy that blocks DNS queries matching any listed domain
-8. **DNS Filtering**: Cloudflare Gateway blocks requests to advertising domains network-wide
+### How it Works
+1. **Domain Sources** → Fetch ad/tracker domains from multiple blocklists
+2. **GitHub Actions** → Automatically update domain lists monthly  
+3. **Terraform Cloud** → Deploy lists and policies to Cloudflare
+4. **Cloudflare Gateway** → Block DNS requests to ad domains
+5. **Your Network** → Enjoy ad-free browsing on all devices
 
 ## Usage
 
