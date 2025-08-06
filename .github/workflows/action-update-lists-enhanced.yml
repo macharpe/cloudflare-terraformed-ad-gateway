@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       sources:
-        description: 'Comma-separated list of sources to update (adaway,stevenblack,malware,easylist,all)'
+        description: 'Comma-separated list of sources to update (adaway,easylist,stevenblack,malware,yoyo,all)'
         required: false
-        default: 'adaway'
+        default: 'adaway,easylist'
   schedule:
     - cron: '0 10 15 * *' # At 10:00 on day-of-month 15
 
@@ -31,16 +31,17 @@ jobs:
         run: |
           # Define sources
           declare -A SOURCES=(
-            ["adaway"]="https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt"
+            ["adaway"]="https://adaway.org/hosts.txt"
+            ["easylist"]="https://someonewhocares.org/hosts/zero/hosts"
             ["stevenblack"]="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
             ["malware"]="https://www.malwaredomainlist.com/hostslist/hosts.txt"
-            ["easylist"]="https://someonewhocares.org/hosts/zero/hosts"
+            ["yoyo"]="https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext"
           )
 
           # Determine which sources to fetch
-          INPUT_SOURCES="${{ github.event.inputs.sources || 'adaway' }}"
+          INPUT_SOURCES="${{ github.event.inputs.sources || 'adaway,easylist' }}"
           if [[ "$INPUT_SOURCES" == "all" ]]; then
-            FETCH_SOURCES=(adaway stevenblack malware easylist)
+            FETCH_SOURCES=(adaway easylist stevenblack malware yoyo)
           else
             IFS=',' read -ra FETCH_SOURCES <<< "$INPUT_SOURCES"
           fi
@@ -105,12 +106,12 @@ jobs:
           commit-message: |
             Update domain lists from multiple sources
             
-            Sources updated: ${{ github.event.inputs.sources || 'adaway' }}
+            Sources updated: ${{ github.event.inputs.sources || 'adaway,easylist' }}
             Updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
           body: |
             ## Domain List Update
             
-            **Sources Updated:** `${{ github.event.inputs.sources || 'adaway' }}`
+            **Sources Updated:** `${{ github.event.inputs.sources || 'adaway,easylist' }}`
             **Updated:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')
             
             This PR updates the domain blocking lists from the specified sources.

@@ -6,15 +6,15 @@ data "http" "domain_sources" {
 
   # Add headers for better compatibility
   request_headers = {
-    Accept    = "text/plain"
+    Accept     = "text/plain"
     User-Agent = "Terraform-Cloudflare-AdBlock/1.0"
   }
 
   # Retry configuration
   retry {
-    attempts      = 3
-    wait_ms       = 1000
-    max_wait_ms   = 30000
+    attempts    = 3
+    wait_ms     = 1000
+    max_wait_ms = 30000
   }
 
   lifecycle {

@@ -55,9 +55,15 @@ variable "domain_sources" {
   description = "Map of domain sources to fetch and process"
   default = {
     adaway = {
-      url         = "https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt"
+      url         = "https://adaway.org/hosts.txt"
       enabled     = true
-      description = "AdAway default blocklist"
+      description = "AdAway mobile ad blocking hosts"
+      format      = "hosts"
+    }
+    easylist = {
+      url         = "https://someonewhocares.org/hosts/zero/hosts"
+      enabled     = true
+      description = "Dan Pollock's EasyList hosts (someonewhocares.org)"
       format      = "hosts"
     }
     stevenblack = {
@@ -72,10 +78,10 @@ variable "domain_sources" {
       description = "Malware Domain List"
       format      = "hosts"
     }
-    easylist = {
-      url         = "https://someonewhocares.org/hosts/zero/hosts"
+    yoyo = {
+      url         = "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext"
       enabled     = false
-      description = "Dan Pollock's hosts file"
+      description = "Peter Lowe's Ad and tracking server list"
       format      = "hosts"
     }
   }
@@ -84,7 +90,7 @@ variable "domain_sources" {
 variable "use_remote_sources" {
   type        = bool
   description = "Enable fetching from remote domain sources defined in domain_sources"
-  default     = false
+  default     = true
 }
 
 variable "additional_domains" {
