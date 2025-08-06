@@ -18,28 +18,26 @@ locals {
   } : {}
 
   # Fetch and process remote sources
-  remote_domains = var.use_remote_sources ? flatten(compact([
+  remote_domains = var.use_remote_sources ? flatten([
     for name, config in local.enabled_sources : [
       for line in split("\n", try(chomp(data.http.domain_sources[name].response_body), "")) :
+      trimspace(config.format == "hosts" ? replace(line, "127.0.0.1 ", "") : line)
+      if try(data.http.domain_sources[name].response_body, null) != null &&
       config.format == "hosts" ?
-      # Process hosts file format (127.0.0.1 domain.com)
       (can(regex("^127\\.0\\.0\\.1\\s+[^\\s]+", line)) &&
         !strcontains(line, "localhost") &&
         !startswith(trimspace(line), "#") &&
-        trimspace(line) != "" ?
-      trimspace(replace(line, "127.0.0.1 ", "")) : null) :
-      # Process plain domain list format
+        trimspace(line) != "") :
       (can(regex("^[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]$", trimspace(line))) &&
         !startswith(trimspace(line), "#") &&
-        trimspace(line) != "" ?
-      trimspace(line) : null)
-    ] if try(data.http.domain_sources[name].response_body, null) != null
-  ])) : []
+        trimspace(line) != "")
+    ]
+  ]) : []
 
   # Combine all domain sources
   all_raw_domains = concat(
     local.local_file_domains,
-    compact(local.remote_domains),
+    local.remote_domains,
     var.additional_domains
   )
 
