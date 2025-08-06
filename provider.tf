@@ -3,7 +3,7 @@ terraform {
     organization = "Terraform-macharpe"
 
     workspaces {
-      name = "terraform-cloudflare-macharpe"
+      name = "terraform-dns-ad-gateway"
     }
   }
   required_version = ">= 1.12.0"
