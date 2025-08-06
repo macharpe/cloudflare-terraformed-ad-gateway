@@ -10,12 +10,8 @@ data "http" "domain_sources" {
     User-Agent = "Terraform-Cloudflare-AdBlock/1.0"
   }
 
-  # Retry configuration
-  retry {
-    attempts    = 3
-    wait_ms     = 1000
-    max_wait_ms = 30000
-  }
+  # Request timeout
+  request_timeout_ms = 30000
 
   lifecycle {
     postcondition {
