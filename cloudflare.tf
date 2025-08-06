@@ -1,5 +1,3 @@
-# This is my Terraform project for Cloudflare
-
 terraform {
   cloud {
     organization = "Terraform-macharpe"

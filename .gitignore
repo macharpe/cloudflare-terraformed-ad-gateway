@@ -28,3 +28,7 @@ Thumbs.db
 # Ignore other unnecessary directories
 node_modules/
 vendor/
+
+# Claude
+CLAUDE.md
+.Claude
