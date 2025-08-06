@@ -1,0 +1,34 @@
+# Ignore Terraform state files
+.terraform/
+terraform.tfstate*
+2-Terraform-cloudflare.code-workspace
+
+# Ignore Terraform plan files
+*.tfplan
+
+# Ignore sensitive files
+*.tfvars
+*.tfvars.json
+
+# Ignore logs and other unnecessary files
+logs/
+*.log
+
+# Ignore Terraform working directory
+.terraform/
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE configuration files
+.vscode/
+.idea/
+
+# Ignore other unnecessary directories
+node_modules/
+vendor/
+
+# Claude
+CLAUDE.md
+.Claude
