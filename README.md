@@ -56,8 +56,9 @@ The solution consists of:
 ### Setup
 
 1. **Configure Terraform Cloud**:
+   - Create or use workspace: `terraform-dns-ad-gateway`
+   - Set up workspace variables:
    ```bash
-   # Set up workspace variables
    CLOUDFLARE_API_TOKEN=your_api_token
    cloudflare_account_id=your_account_id
    ```
