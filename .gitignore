@@ -2,6 +2,7 @@
 .terraform/
 terraform.tfstate*
 2-Terraform-cloudflare.code-workspace
+.terraform.lock.hcl
 
 # Ignore Terraform plan files
 *.tfplan
