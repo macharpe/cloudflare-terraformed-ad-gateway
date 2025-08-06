@@ -1,0 +1,123 @@
+name: 'Update Domain Lists (Enhanced)'
+
+on:
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: 'Comma-separated list of sources to update (adaway,stevenblack,malware,easylist,all)'
+        required: false
+        default: 'adaway'
+  schedule:
+    - cron: '0 10 15 * *' # At 10:00 on day-of-month 15
+
+env:
+  FOLDER: './lists'
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-22.04
+
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: 📂 Checkout Branch
+        uses: actions/checkout@v4
+
+      - name: 🔗 Fetch Domain Lists
+        working-directory: ${{ env.FOLDER }}
+        run: |
+          # Define sources
+          declare -A SOURCES=(
+            ["adaway"]="https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt"
+            ["stevenblack"]="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+            ["malware"]="https://www.malwaredomainlist.com/hostslist/hosts.txt"
+            ["easylist"]="https://someonewhocares.org/hosts/zero/hosts"
+          )
+
+          # Determine which sources to fetch
+          INPUT_SOURCES="${{ github.event.inputs.sources || 'adaway' }}"
+          if [[ "$INPUT_SOURCES" == "all" ]]; then
+            FETCH_SOURCES=(adaway stevenblack malware easylist)
+          else
+            IFS=',' read -ra FETCH_SOURCES <<< "$INPUT_SOURCES"
+          fi
+
+          echo "[*] Fetching sources: ${FETCH_SOURCES[*]}"
+
+          # Create temporary files for each source
+          > temp_combined.txt
+
+          for source in "${FETCH_SOURCES[@]}"; do
+            if [[ -v SOURCES[$source] ]]; then
+              url="${SOURCES[$source]}"
+              echo "[*] Fetching $source from: $url"
+              
+              if wget --quiet --timeout=30 "$url" -O "temp_$source.txt"; then
+                echo "[*] Processing $source..."
+                
+                # Extract domains from hosts format
+                grep "^127\.0\.0\.1" "temp_$source.txt" | \
+                  awk '{print $2}' | \
+                  grep -v "localhost" | \
+                  grep -E '^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$' | \
+                  sort -u >> temp_combined.txt
+                
+                rm "temp_$source.txt"
+              else
+                echo "[!] Failed to fetch $source"
+              fi
+            else
+              echo "[!] Unknown source: $source"
+            fi
+          done
+
+          # Process combined list
+          echo "[*] Creating final domain list..."
+          
+          # Remove duplicates, sort, and create final file in hosts format
+          sort -u temp_combined.txt | \
+            sed 's/^/127.0.0.1 /' > pihole_domain_list.txt
+
+          # Add header
+          {
+            echo "# Combined ad-blocking domain list"
+            echo "# Sources: ${FETCH_SOURCES[*]}"
+            echo "# Generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+            echo "# Total domains: $(wc -l < pihole_domain_list.txt)"
+            echo "#"
+            cat pihole_domain_list.txt
+          } > temp_final.txt
+          
+          mv temp_final.txt pihole_domain_list.txt
+          rm -f temp_combined.txt
+
+          echo "[*] Final domain count: $(grep -c "^127\.0\.0\.1" pihole_domain_list.txt)"
+
+      - name: ↗️ Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: 'Update Domain Lists'
+          branch-suffix: timestamp
+          commit-message: |
+            Update domain lists from multiple sources
+            
+            Sources updated: ${{ github.event.inputs.sources || 'adaway' }}
+            Updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          body: |
+            ## Domain List Update
+            
+            **Sources Updated:** `${{ github.event.inputs.sources || 'adaway' }}`
+            **Updated:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+            
+            This PR updates the domain blocking lists from the specified sources.
+            
+            ### Changes
+            - Updated `lists/pihole_domain_list.txt` with latest domains
+            - Combined domains from multiple sources and removed duplicates
+            
+            ### Next Steps
+            After merging, Terraform will automatically update the Cloudflare Zero Trust lists.
