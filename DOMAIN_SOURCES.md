@@ -1,29 +1,45 @@
 # Domain Sources Configuration
 
-This document explains how to configure and use multiple domain sources for ad-blocking.
+This document explains how to configure and use multiple domain sources for ad-blocking with Cloudflare Zero Trust Gateway.
 
 ## Quick Start
 
-### Option 1: Use Local File (Current Method)
-Keep using the existing `lists/pihole_domain_list.txt` file:
+### Current Configuration (Default)
+The system is configured with remote sources enabled by default:
 ```hcl
-# No changes needed - works as before
+use_remote_sources = true  # Enabled by default
+
+domain_sources = {
+  adaway = {
+    url         = "https://adaway.org/hosts.txt"
+    enabled     = true   # ✅ Active
+    description = "AdAway mobile ad blocking hosts"
+    format      = "hosts"
+  }
+  easylist = {
+    url         = "https://someonewhocares.org/hosts/zero/hosts"
+    enabled     = true   # ✅ Active  
+    description = "Dan Pollock's EasyList hosts (someonewhocares.org)"
+    format      = "hosts"
+  }
+  # Additional sources available but disabled by default
+}
 ```
 
-### Option 2: Enable Remote Sources
-Add this to your Terraform variables:
-```hcl
-use_remote_sources = true
-```
-
-### Option 3: Enable Additional Sources
-Enable more blocklists by modifying `domain_sources`:
+### Enable Additional Sources
+To enable more blocklists, modify the `domain_sources` in `variables.tf`:
 ```hcl
 domain_sources = {
   adaway = {
-    url         = "https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt"
+    url         = "https://adaway.org/hosts.txt"
     enabled     = true
-    description = "AdAway default blocklist"
+    description = "AdAway mobile ad blocking hosts"
+    format      = "hosts"
+  }
+  easylist = {
+    url         = "https://someonewhocares.org/hosts/zero/hosts"
+    enabled     = true
+    description = "Dan Pollock's EasyList hosts"
     format      = "hosts"
   }
   stevenblack = {
@@ -33,17 +49,23 @@ domain_sources = {
     format      = "hosts"
   }
 }
-use_remote_sources = true
 ```
 
 ## Available Sources
 
-| Source | Domains | Description | Default |
-|--------|---------|-------------|---------|
-| `adaway` | ~6,500 | AdAway mobile ad blocklist | ✅ Enabled |
-| `stevenblack` | ~100,000+ | Unified hosts (ads + malware) | ❌ Disabled |
-| `malwaredomainlist` | ~2,000 | Malware domains only | ❌ Disabled |
-| `easylist` | ~50,000+ | Dan Pollock's hosts file | ❌ Disabled |
+| Source | Domains | Format | Description | Default |
+|--------|---------|--------|-------------|---------|
+| `adaway` | ~6,500 | `127.0.0.1` | AdAway mobile ad blocking hosts | ✅ Enabled |
+| `easylist` | ~11,800 | `0.0.0.0` | Dan Pollock's hosts (someonewhocares.org) | ✅ Enabled |
+| `stevenblack` | ~100,000+ | `0.0.0.0` | StevenBlack unified hosts file | ❌ Disabled |
+| `malwaredomainlist` | ~2,000 | `127.0.0.1` | Malware Domain List | ❌ Disabled |
+| `yoyo` | ~2,500 | `127.0.0.1` | Peter Lowe's Ad and tracking server list | ❌ Disabled |
+
+### Supported Host File Formats
+- **127.0.0.1 Format**: `127.0.0.1 ads.example.com` (AdAway style)
+- **0.0.0.0 Format**: `0.0.0.0 ads.example.com` (EasyList/someonewhocares.org style)
+
+Both formats are automatically processed and converted to domain lists.
 
 ## Configuration Options
 
@@ -76,13 +98,19 @@ chunk_size = 500  # Smaller chunks for faster updates
 ## GitHub Actions Integration
 
 ### Manual Update
-1. Go to **Actions** → **Update Domain Lists (Enhanced)**
+1. Go to **Actions** → **Update Domain Lists**
 2. Click **Run workflow**
-3. Choose sources: `adaway,stevenblack` or `all`
+3. Choose sources: `adaway,easylist,stevenblack,malware,yoyo` or `all`
 4. Click **Run workflow**
 
 ### Automated Updates
-The workflow runs monthly on the 15th, fetching from the `adaway` source by default.
+The workflow runs monthly on the 15th, fetching from `adaway,easylist` sources by default.
+
+### Workflow Features
+- Supports both `127.0.0.1` and `0.0.0.0` host file formats
+- Automatically combines and deduplicates domains
+- Creates PR with updated domain list
+- Processes multiple sources in parallel
 
 ## Monitoring
 
@@ -95,11 +123,38 @@ terraform output domain_sources_status
 Example output:
 ```json
 {
-  "total_domains": 8234,
+  "total_domains": 18234,
   "local_file_domains": 6500,
-  "remote_domains": 1500,
+  "remote_domains": 11500,
   "additional_domains": 234,
-  "active_sources": ["adaway", "stevenblack"]
+  "remote_sources_enabled": true,
+  "active_sources": ["adaway", "easylist"]
+}
+```
+
+### Domain Source Status
+Check individual source status:
+```bash
+terraform output domain_sources_status
+```
+
+Example:
+```json
+{
+  "adaway": {
+    "url": "https://adaway.org/hosts.txt",
+    "description": "AdAway mobile ad blocking hosts",
+    "format": "hosts",
+    "status": 200,
+    "domains_found": 6543
+  },
+  "easylist": {
+    "url": "https://someonewhocares.org/hosts/zero/hosts", 
+    "description": "Dan Pollock's EasyList hosts",
+    "format": "hosts",
+    "status": 200,
+    "domains_found": 11805
+  }
 }
 ```
 
