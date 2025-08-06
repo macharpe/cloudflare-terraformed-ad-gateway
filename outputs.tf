@@ -31,16 +31,16 @@ output "duplicate_domains_removed" {
 output "configuration_summary" {
   description = "Summary of the ad-blocking configuration"
   value = {
-    total_domains       = length(local.clean_domains)
-    chunks_created      = length(local.domain_chunks)
-    domains_per_chunk   = var.chunk_size
-    policy_enabled      = var.enable_ad_blocking
-    policy_precedence   = var.policy_precedence
-    local_file_domains  = length(local.local_file_domains)
-    remote_domains      = length(local.remote_domains)
-    additional_domains  = length(var.additional_domains)
+    total_domains          = length(local.clean_domains)
+    chunks_created         = length(local.domain_chunks)
+    domains_per_chunk      = var.chunk_size
+    policy_enabled         = var.enable_ad_blocking
+    policy_precedence      = var.policy_precedence
+    local_file_domains     = length(local.local_file_domains)
+    remote_domains         = length(local.remote_domains)
+    additional_domains     = length(var.additional_domains)
     remote_sources_enabled = var.use_remote_sources
-    active_sources      = var.use_remote_sources ? keys(local.enabled_sources) : []
+    active_sources         = var.use_remote_sources ? keys(local.enabled_sources) : []
   }
 }
 
@@ -55,14 +55,14 @@ output "domain_sources_status" {
       status      = try(data.http.domain_sources[name].status_code, "not_fetched")
       domains_found = length([
         for line in split("\n", try(chomp(data.http.domain_sources[name].response_body), "")) :
-        line if config.format == "hosts" ? 
-          (can(regex("^127\\.0\\.0\\.1\\s+[^\\s]+", line)) && 
-           !strcontains(line, "localhost") && 
-           !startswith(trimspace(line), "#") && 
-           trimspace(line) != "") :
-          (can(regex("^[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]$", trimspace(line))) && 
-           !startswith(trimspace(line), "#") && 
-           trimspace(line) != "")
+        line if config.format == "hosts" ?
+        (can(regex("^127\\.0\\.0\\.1\\s+[^\\s]+", line)) &&
+          !strcontains(line, "localhost") &&
+          !startswith(trimspace(line), "#") &&
+        trimspace(line) != "") :
+        (can(regex("^[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]$", trimspace(line))) &&
+          !startswith(trimspace(line), "#") &&
+        trimspace(line) != "")
       ])
     }
   } : {}
