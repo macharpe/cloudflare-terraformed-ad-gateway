@@ -7,9 +7,15 @@ variable "cloudflare_account_id" {
   }
 }
 
-variable "cloudflare_api_token" {
+variable "cloudflare_email" {
   type        = string
-  description = "The API token for the Cloudflare account (recommended over API key)"
+  description = "The email address associated with the Cloudflare account"
+  sensitive   = true
+}
+
+variable "cloudflare_api_key" {
+  type        = string
+  description = "The API key for the Cloudflare account"
   sensitive   = true
 }
 
