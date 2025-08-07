@@ -108,12 +108,12 @@ jobs:
             Update domain lists from multiple sources
             
             Sources updated: ${{ github.event.inputs.sources || 'adaway,easylist' }}
-            Updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+            Updated: ${{ github.run_number }} (${{ github.run_id }})
           body: |
             ## Domain List Update
             
             **Sources Updated:** `${{ github.event.inputs.sources || 'adaway,easylist' }}`
-            **Updated:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+            **Updated:** Run #${{ github.run_number }} on ${{ github.ref_name }}
             
             This PR updates the domain blocking lists from the specified sources.
             
