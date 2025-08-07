@@ -57,8 +57,7 @@ graph LR
    | Variable Name | Type | Sensitive | Description |
    |---------------|------|-----------|-------------|
    | `cloudflare_account_id` | Terraform variable | No | Your Cloudflare account ID |
-   | `cloudflare_email` | Terraform variable | Yes | Your Cloudflare email address |
-   | `cloudflare_api_key` | Terraform variable | Yes | Your Cloudflare API key |
+   | `cloudflare_api_token` | Terraform variable | Yes | Your Cloudflare API token |
 
 2. **Update Domain Lists**:
    - Place your ad-blocking domains in `lists/pihole_domain_list.txt`
