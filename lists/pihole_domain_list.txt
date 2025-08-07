@@ -1,6 +1,6 @@
 # Combined ad-blocking domain list
 # Sources: adaway
-# Generated: 2025-08-07 00:12:24 UTC
+# Generated: 2025-08-07 00:14:13 UTC
 # Total domains: 6540
 #
 127.0.0.1 0ce3c-1fd43.api.pushwoosh.com
