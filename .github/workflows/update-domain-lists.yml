@@ -123,3 +123,23 @@ jobs:
             
             ### Next Steps
             After merging, Terraform will automatically update the Cloudflare Zero Trust lists.
+
+      - name: 🔀 Auto Squash and Merge PR
+        if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
+        run: |
+          # Extract PR number from the create-pull-request action output
+          PR_NUMBER="${{ steps.create-pr.outputs.pull-request-number }}"
+          if [ -z "$PR_NUMBER" ]; then
+            # Fallback: Get the most recent open PR for this workflow
+            PR_NUMBER=$(gh pr list --head "create-pull-request/patch" --state open --json number --jq '.[0].number')
+          fi
+          
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Merging PR #$PR_NUMBER"
+            gh pr merge "$PR_NUMBER" --squash
+          else
+            echo "No PR number found to merge"
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
