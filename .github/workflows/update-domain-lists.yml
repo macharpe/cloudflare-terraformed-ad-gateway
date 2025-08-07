@@ -98,6 +98,7 @@ jobs:
           echo "[*] Final domain count: $(grep -c "^127\.0\.0\.1" pihole_domain_list.txt)"
 
       - name: ↗️ Create Pull Request
+        id: create-pr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -107,12 +108,12 @@ jobs:
             Update domain lists from multiple sources
             
             Sources updated: ${{ github.event.inputs.sources || 'adaway,easylist' }}
-            Updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+            Updated: ${{ github.run_number }} (${{ github.run_id }})
           body: |
             ## Domain List Update
             
             **Sources Updated:** `${{ github.event.inputs.sources || 'adaway,easylist' }}`
-            **Updated:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+            **Updated:** Run #${{ github.run_number }} on ${{ github.ref_name }}
             
             This PR updates the domain blocking lists from the specified sources.
             
@@ -122,3 +123,23 @@ jobs:
             
             ### Next Steps
             After merging, Terraform will automatically update the Cloudflare Zero Trust lists.
+
+      - name: 🔀 Auto Squash and Merge PR
+        if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
+        run: |
+          # Extract PR number from the create-pull-request action output
+          PR_NUMBER="${{ steps.create-pr.outputs.pull-request-number }}"
+          if [ -z "$PR_NUMBER" ]; then
+            # Fallback: Get the most recent open PR for this workflow
+            PR_NUMBER=$(gh pr list --head "create-pull-request/patch" --state open --json number --jq '.[0].number')
+          fi
+          
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Merging PR #$PR_NUMBER"
+            gh pr merge "$PR_NUMBER" --squash
+          else
+            echo "No PR number found to merge"
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
