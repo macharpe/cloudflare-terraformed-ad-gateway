@@ -34,6 +34,7 @@ graph LR
 ```
 
 ### How it Works
+
 1. **Domain Sources** → Fetch ad/tracker domains from multiple blocklists
 2. **GitHub Actions** → Automatically update domain lists monthly  
 3. **Terraform Cloud** → Deploy lists and policies to Cloudflare
@@ -50,20 +51,29 @@ graph LR
 
 ### Setup
 
-1. **Configure Terraform Cloud**:
+1. **Create Cloudflare API Token**:
+   - Go to [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)
+   - Click "Create Token" → "Custom Token"
+   - **Required Permissions**:
+     - `Account` - `Zero Trust` - `Edit`
+     - `Account` - `Account Settings` - `Read`
+   - **Account Resources**: Include your target account
+
+2. **Configure Terraform Cloud**:
    - Create or use workspace: `terraform-dns-ad-gateway`
    - Set up **Terraform variables** (not environment variables):
-   
+
    | Variable Name | Type | Sensitive | Description |
    |---------------|------|-----------|-------------|
    | `cloudflare_account_id` | Terraform variable | No | Your Cloudflare account ID |
-   | `cloudflare_api_token` | Terraform variable | Yes | Your Cloudflare API token |
+   | `cloudflare_api_token` | Terraform variable | Yes | Your Cloudflare API token (created above) |
 
-2. **Update Domain Lists**:
-   - Place your ad-blocking domains in `lists/pihole_domain_list.txt`
-   - Format: `127.0.0.1 domain.com` (one per line)
+3. **Domain Lists**:
+   - Domain lists are automatically generated from configured sources
+   - The combined list is stored in `lists/pihole_domain_list.txt`
 
-3. **Deploy**:
+4. **Deploy**:
+
    ```bash
    terraform init
    terraform plan
@@ -114,14 +124,6 @@ Use the GitHub Actions workflow:
 3. Choose sources to update (or use default: AdAway + EasyList)
 4. Workflow creates a PR with updated domain lists
 
-#### Manual Updates
-
-To manually update blocked domains:
-
-1. Update `lists/pihole_domain_list.txt` with new domains
-2. Run `terraform apply` to update the lists and policy
-3. Changes are applied automatically to your Gateway policy
-
 ## Domain List Format
 
 The system supports multiple hosts file formats:
@@ -129,14 +131,16 @@ The system supports multiple hosts file formats:
 ### Supported Formats
 
 **127.0.0.1 Format (AdAway):**
-```
+
+```text
 # Comments start with #
 127.0.0.1 ads.example.com
 127.0.0.1 tracker.example.com
 ```
 
 **0.0.0.0 Format (EasyList/someonewhocares.org):**
-```
+
+```text
 # Comments start with #
 0.0.0.0 ads.example.com
 0.0.0.0 tracker.example.com
@@ -152,7 +156,7 @@ The system supports multiple hosts file formats:
 
 ## Project Structure
 
-```
+```text
 cloudflare-terraformed-ad-gateway/
 ├── README.md                     # This file
 ├── CLAUDE.md                     # Development documentation
@@ -184,6 +188,7 @@ Monitor your ad-blocking effectiveness through:
 ## Inspiration
 
 This project was inspired by:
+
 - [Serverless Ad Blocking with Cloudflare Gateway](https://blog.marcolancini.it/2022/blog-serverless-ad-blocking-with-cloudflare-gateway/)
 - [YouTube: Cloudflare Zero Trust Tutorial](https://www.youtube.com/watch?v=FmYvrxYvBP0&t=900s)
 
