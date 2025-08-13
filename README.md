@@ -1,6 +1,6 @@
 # Cloudflare Ad-Blocking Gateway
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Terraform](https://img.shields.io/badge/Terraform-%235835CC.svg?style=flat&logo=terraform&logoColor=white)](https://www.terraform.io/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)](https://www.cloudflare.com/)
 [![Zero Trust](https://img.shields.io/badge/Zero%20Trust-Gateway-blue)](https://developers.cloudflare.com/cloudflare-one/)
@@ -161,7 +161,7 @@ cloudflare-terraformed-ad-gateway/
 ├── README.md                     # This file
 ├── CLAUDE.md                     # Development documentation
 ├── DOMAIN_SOURCES.md            # Domain source information
-├── LICENSE                      # MIT License
+├── LICENSE                      # GPL v3 License
 ├── lists/                       # Domain lists
 │   └── pihole_domain_list.txt   # Combined domain list (127.0.0.1 format)
 ├── .github/workflows/           # GitHub Actions
@@ -194,4 +194,4 @@ This project was inspired by:
 
 ## License
 
-MIT License - feel free to use and modify for your own ad-blocking needs.
+GPL v3 License - see the [LICENSE](LICENSE) file for details.
