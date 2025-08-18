@@ -28,6 +28,8 @@ jobs:
 
       - name: 🔗 Fetch Domain Lists
         working-directory: ${{ env.FOLDER }}
+        env:
+          INPUT_SOURCES: ${{ github.event.inputs.sources || 'adaway,easylist' }}
         run: |
           # Define sources
           declare -A SOURCES=(
@@ -39,7 +41,7 @@ jobs:
           )
 
           # Determine which sources to fetch
-          INPUT_SOURCES="${{ github.event.inputs.sources || 'adaway,easylist' }}"
+          INPUT_SOURCES="$INPUT_SOURCES"
           if [[ "$INPUT_SOURCES" == "all" ]]; then
             FETCH_SOURCES=(adaway easylist stevenblack malware yoyo)
           else
@@ -100,6 +102,11 @@ jobs:
       - name: ↗️ Create Pull Request
         id: create-pr
         uses: peter-evans/create-pull-request@v6
+        env:
+          PR_SOURCES: ${{ github.event.inputs.sources || 'adaway,easylist' }}
+          RUN_NUMBER: ${{ github.run_number }}
+          RUN_ID: ${{ github.run_id }}
+          REF_NAME: ${{ github.ref_name }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: 'Update Domain Lists'
@@ -107,13 +114,13 @@ jobs:
           commit-message: |
             Update domain lists from multiple sources
             
-            Sources updated: ${{ github.event.inputs.sources || 'adaway,easylist' }}
-            Updated: ${{ github.run_number }} (${{ github.run_id }})
+            Sources updated: ${{ env.PR_SOURCES }}
+            Updated: ${{ env.RUN_NUMBER }} (${{ env.RUN_ID }})
           body: |
             ## Domain List Update
             
-            **Sources Updated:** `${{ github.event.inputs.sources || 'adaway,easylist' }}`
-            **Updated:** Run #${{ github.run_number }} on ${{ github.ref_name }}
+            **Sources Updated:** `${{ env.PR_SOURCES }}`
+            **Updated:** Run #${{ env.RUN_NUMBER }} on ${{ env.REF_NAME }}
             
             This PR updates the domain blocking lists from the specified sources.
             
@@ -126,9 +133,11 @@ jobs:
 
       - name: 🔀 Auto Squash and Merge PR
         if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
+        env:
+          PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
         run: |
           # Extract PR number from the create-pull-request action output
-          PR_NUMBER="${{ steps.create-pr.outputs.pull-request-number }}"
+          PR_NUMBER="$PR_NUMBER"
           if [ -z "$PR_NUMBER" ]; then
             # Fallback: Get the most recent open PR for this workflow
             PR_NUMBER=$(gh pr list --head "create-pull-request/patch" --state open --json number --jq '.[0].number')
