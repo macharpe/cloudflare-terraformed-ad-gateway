@@ -5,6 +5,7 @@
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)](https://www.cloudflare.com/)
 [![Zero Trust](https://img.shields.io/badge/Zero%20Trust-Gateway-blue)](https://developers.cloudflare.com/cloudflare-one/)
 [![Ad Blocking](https://img.shields.io/badge/Ad%20Blocking-DNS%20Level-green)](https://github.com/macharpe/cloudflare-terraformed-ad-gateway)
+[![Semgrep Security Scan](https://github.com/macharpe/cloudflare-terraformed-ad-gateway/actions/workflows/semgrep-security-scan.yml/badge.svg)](https://github.com/macharpe/cloudflare-terraformed-ad-gateway/actions/workflows/semgrep-security-scan.yml)
 
 A Terraform-managed ad-blocking solution using Cloudflare Zero Trust Gateway that blocks DNS requests to advertising and tracking domains from multiple sources.
 
