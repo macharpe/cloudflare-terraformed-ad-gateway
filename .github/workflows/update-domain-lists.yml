@@ -150,5 +150,3 @@ jobs:
             echo "No PR number found to merge"
             exit 1
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
