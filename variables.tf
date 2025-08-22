@@ -86,7 +86,7 @@ variable "domain_sources" {
     }
     yoyo = {
       url         = "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext"
-      enabled     = false
+      enabled     = true
       description = "Peter Lowe's Ad and tracking server list"
       format      = "hosts"
     }
