@@ -134,6 +134,7 @@ jobs:
       - name: 🔀 Auto Squash and Merge PR
         if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
         run: |
           # Extract PR number from the create-pull-request action output
