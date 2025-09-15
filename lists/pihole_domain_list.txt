@@ -1,7 +1,7 @@
 # Combined ad-blocking domain list
 # Sources: adaway easylist
-# Generated: 2025-08-15 10:16:17 UTC
-# Total domains: 17946
+# Generated: 2025-09-15 10:15:44 UTC
+# Total domains: 17948
 #
 127.0.0.1 0.nextyourcontent.com
 127.0.0.1 006.free-counter.co.uk
@@ -4418,6 +4418,7 @@
 127.0.0.1 capcityadvcom.112.2o7.net
 127.0.0.1 capcityadvcom.122.2o7.net
 127.0.0.1 capi.connatix.com
+127.0.0.1 capital-invest-can.cropvita.sbs
 127.0.0.1 capitalregionusa.fr
 127.0.0.1 capostdelivery.com
 127.0.0.1 caps-server.anzu.io
@@ -7818,6 +7819,7 @@
 127.0.0.1 gw.flurry.com
 127.0.0.1 gw.geoedge.be
 127.0.0.1 gwallet.com
+127.0.0.1 gwene.com.slackware.alien.blog
 127.0.0.1 gwiq-v3.globalwebindex.net
 127.0.0.1 gwiqcdn.globalwebindex.net
 127.0.0.1 gwklaser.fr
