@@ -145,8 +145,8 @@ jobs:
           fi
           
           if [ -n "$PR_NUMBER" ]; then
-            echo "Merging PR #$PR_NUMBER"
-            gh pr merge "$PR_NUMBER" --squash
+            echo "Enabling auto-merge for PR #$PR_NUMBER"
+            gh pr merge "$PR_NUMBER" --squash --auto
           else
             echo "No PR number found to merge"
             exit 1
