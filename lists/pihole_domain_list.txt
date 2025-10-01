@@ -1,6 +1,6 @@
 # Combined ad-blocking domain list
 # Sources: adaway easylist
-# Generated: 2025-09-15 10:55:13 UTC
+# Generated: 2025-09-15 11:04:11 UTC
 # Total domains: 17948
 #
 127.0.0.1 0.nextyourcontent.com
