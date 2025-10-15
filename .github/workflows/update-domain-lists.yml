@@ -131,19 +131,87 @@ jobs:
             ### Next Steps
             After merging, Terraform will automatically update the Cloudflare Zero Trust lists.
 
+      - name: 🔐 Trigger Semgrep Security Scan
+        if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
+        run: |
+          PR_NUMBER="$PR_NUMBER"
+          if [ -z "$PR_NUMBER" ]; then
+            PR_NUMBER=$(gh pr list --head "create-pull-request/patch" --state open --json number --jq '.[0].number')
+          fi
+
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Triggering Semgrep scan for PR #$PR_NUMBER"
+            # Get the branch name for the PR
+            BRANCH=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.headRefName')
+            echo "Branch: $BRANCH"
+
+            # Trigger the Semgrep workflow on the PR branch
+            gh workflow run semgrep-security-scan.yml --ref "$BRANCH" || echo "Warning: Could not trigger Semgrep workflow"
+          fi
+
+      - name: ⏳ Wait for Status Checks
+        if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
+        run: |
+          PR_NUMBER="$PR_NUMBER"
+          if [ -z "$PR_NUMBER" ]; then
+            PR_NUMBER=$(gh pr list --head "create-pull-request/patch" --state open --json number --jq '.[0].number')
+          fi
+
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Waiting for status checks on PR #$PR_NUMBER..."
+            # Wait up to 5 minutes for checks to complete
+            MAX_ATTEMPTS=30
+            ATTEMPT=0
+
+            while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+              echo "Attempt $((ATTEMPT + 1))/$MAX_ATTEMPTS: Checking PR status..."
+
+              # Check if all checks have passed
+              CHECK_STATUS=$(gh pr view "$PR_NUMBER" --json statusCheckRollup --jq '.statusCheckRollup[] | select(.conclusion != null) | .conclusion' | sort -u)
+              PENDING_CHECKS=$(gh pr view "$PR_NUMBER" --json statusCheckRollup --jq '.statusCheckRollup[] | select(.conclusion == null) | .name')
+
+              if [ -z "$PENDING_CHECKS" ]; then
+                echo "All checks completed!"
+                if echo "$CHECK_STATUS" | grep -qv "SUCCESS\|SKIPPED\|NEUTRAL"; then
+                  echo "Some checks failed. Check details:"
+                  gh pr checks "$PR_NUMBER"
+                  exit 1
+                else
+                  echo "All checks passed!"
+                  break
+                fi
+              else
+                echo "Waiting for checks to complete: $PENDING_CHECKS"
+              fi
+
+              ATTEMPT=$((ATTEMPT + 1))
+              sleep 10
+            done
+
+            if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+              echo "Timeout waiting for checks. Current status:"
+              gh pr checks "$PR_NUMBER"
+              exit 1
+            fi
+          fi
+
       - name: 🔀 Auto Squash and Merge PR
         if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
         run: |
-          # Extract PR number from the create-pull-request action output
           PR_NUMBER="$PR_NUMBER"
           if [ -z "$PR_NUMBER" ]; then
-            # Fallback: Get the most recent open PR for this workflow
             PR_NUMBER=$(gh pr list --head "create-pull-request/patch" --state open --json number --jq '.[0].number')
           fi
-          
+
           if [ -n "$PR_NUMBER" ]; then
             echo "Merging PR #$PR_NUMBER with admin privileges"
             gh pr merge "$PR_NUMBER" --squash --admin
