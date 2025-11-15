@@ -1,7 +1,7 @@
 # Combined ad-blocking domain list
 # Sources: adaway easylist
-# Generated: 2025-10-15 10:16:44 UTC
-# Total domains: 17948
+# Generated: 2025-11-15 10:14:21 UTC
+# Total domains: 17952
 #
 127.0.0.1 0.nextyourcontent.com
 127.0.0.1 006.free-counter.co.uk
@@ -3931,6 +3931,7 @@
 127.0.0.1 biz5.sandai.net
 127.0.0.1 bizad.nikkeibp.co.jp
 127.0.0.1 bizalmas.com
+127.0.0.1 bizlawpoint.com
 127.0.0.1 bizographics.com
 127.0.0.1 bizony.eu
 127.0.0.1 bj.imp.voiceads.cn
@@ -7463,6 +7464,7 @@
 127.0.0.1 gds.mmstat.com
 127.0.0.1 gdyn.cnngo.com
 127.0.0.1 geizhals.oewabox.at
+127.0.0.1 gekowex.com
 127.0.0.1 gem.gbc.criteo.com
 127.0.0.1 gem.pl
 127.0.0.1 gemini.yahoo.com
@@ -12220,6 +12222,7 @@
 127.0.0.1 query.petametrics.com
 127.0.0.1 query1.petametrics.com
 127.0.0.1 question2answer.com
+127.0.0.1 questrade-pypip.com
 127.0.0.1 queuer-prod-elb.53.localytics.com
 127.0.0.1 quickadsmedia.gotrackier.com
 127.0.0.1 quickandeasy.co.za
@@ -16095,6 +16098,7 @@
 127.0.0.1 wdm29.com
 127.0.0.1 wdpro-mkt-prod2-lb.campaign.adobe.com
 127.0.0.1 we-are-gamers.com
+127.0.0.1 wealthsimple-dwvip.com
 127.0.0.1 weapfuh.originalriver-tone.top
 127.0.0.1 weather-analytics-events.apple.com
 127.0.0.1 weather.fixitpro.ro
