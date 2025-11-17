@@ -172,13 +172,15 @@ jobs:
             while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
               echo "Attempt $((ATTEMPT + 1))/$MAX_ATTEMPTS: Checking PR status..."
 
-              # Check if all checks have passed
-              CHECK_STATUS=$(gh pr view "$PR_NUMBER" --json statusCheckRollup --jq '.statusCheckRollup[] | select(.conclusion != null) | .conclusion' | sort -u)
-              PENDING_CHECKS=$(gh pr view "$PR_NUMBER" --json statusCheckRollup --jq '.statusCheckRollup[] | select(.conclusion == null) | .name')
+              # Check both CheckRun (.conclusion) and StatusContext (.state) types
+              CHECK_RESULTS=$(gh pr view "$PR_NUMBER" --json statusCheckRollup --jq '.statusCheckRollup[] | {name: .name, status: (.conclusion // .state), completed: ((.conclusion // .state) != null)}')
+              PENDING_COUNT=$(echo "$CHECK_RESULTS" | jq -s '[.[] | select(.completed == false)] | length')
 
-              if [ -z "$PENDING_CHECKS" ]; then
+              if [ "$PENDING_COUNT" -eq 0 ]; then
                 echo "All checks completed!"
-                if echo "$CHECK_STATUS" | grep -qv "SUCCESS\|SKIPPED\|NEUTRAL"; then
+                FAILED_CHECKS=$(echo "$CHECK_RESULTS" | jq -s '[.[] | select(.status != "SUCCESS" and .status != "SKIPPED" and .status != "NEUTRAL")] | length')
+
+                if [ "$FAILED_CHECKS" -gt 0 ]; then
                   echo "Some checks failed. Check details:"
                   gh pr checks "$PR_NUMBER"
                   exit 1
@@ -187,7 +189,8 @@ jobs:
                   break
                 fi
               else
-                echo "Waiting for checks to complete: $PENDING_CHECKS"
+                echo "Waiting for $PENDING_COUNT check(s) to complete..."
+                echo "$CHECK_RESULTS" | jq -s '.[] | select(.completed == false) | .name'
               fi
 
               ATTEMPT=$((ATTEMPT + 1))
