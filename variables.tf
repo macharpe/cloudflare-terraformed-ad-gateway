@@ -42,7 +42,7 @@ variable "enable_ad_blocking" {
 variable "policy_name" {
   type        = string
   description = "Name for the ad-blocking policy"
-  default     = "DNS-Block: Ads Gateway Terraform"
+  default     = "DNS-Block: Ads Gateway Terraform [perso]"
 }
 
 variable "policy_description" {
