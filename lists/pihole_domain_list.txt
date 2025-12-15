@@ -1,7 +1,7 @@
 # Combined ad-blocking domain list
 # Sources: adaway easylist
-# Generated: 2025-11-15 10:14:21 UTC
-# Total domains: 17952
+# Generated: 2025-12-15 10:20:32 UTC
+# Total domains: 17954
 #
 127.0.0.1 0.nextyourcontent.com
 127.0.0.1 006.free-counter.co.uk
@@ -3999,7 +3999,6 @@
 127.0.0.1 bo.goadservices.com
 127.0.0.1 boardgamearena.fr
 127.0.0.1 bob.dmpxs.com
-127.0.0.1 bobcard.co.in
 127.0.0.1 bobgear.fr
 127.0.0.1 bodelen.com
 127.0.0.1 bodyfitness-epernon.fr
@@ -9552,6 +9551,7 @@
 127.0.0.1 losu.112.2o7.net
 127.0.0.1 louisvil.app.ur.gcion.com
 127.0.0.1 louisvil.ur.gcion.com
+127.0.0.1 love-quest.blog
 127.0.0.1 lovedonesproducts.com
 127.0.0.1 lovelydrum.com
 127.0.0.1 lovittco.com.au
@@ -11313,6 +11313,7 @@
 127.0.0.1 p5.preppypm.com
 127.0.0.1 p6.preppypm.com
 127.0.0.1 p7.preppypm.com
+127.0.0.1 pa-cd.com
 127.0.0.1 pa-voyance.fr
 127.0.0.1 pa.5.p2l.info
 127.0.0.1 paalp.fr
@@ -14850,6 +14851,7 @@
 127.0.0.1 tr-asia.adsmoloco.com
 127.0.0.1 tr-eu.adsmoloco.com
 127.0.0.1 tr-gmtdmp.mookie1.com
+127.0.0.1 tr-red.lamanoqueayuda.org
 127.0.0.1 tr-romsp-unifyconfig.vivoglobal.com
 127.0.0.1 tr-st-sl.vivoglobal.com
 127.0.0.1 tr-us.adsmoloco.com
