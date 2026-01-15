@@ -1,7 +1,7 @@
 # Combined ad-blocking domain list
 # Sources: adaway easylist
-# Generated: 2025-11-15 10:14:21 UTC
-# Total domains: 17952
+# Generated: 2026-01-15 10:18:42 UTC
+# Total domains: 17978
 #
 127.0.0.1 0.nextyourcontent.com
 127.0.0.1 006.free-counter.co.uk
@@ -3711,6 +3711,7 @@
 127.0.0.1 bargainservice.online
 127.0.0.1 barnesandnoble.bfast.com
 127.0.0.1 base-cdn.admarvel.com
+127.0.0.1 baselabo.heteml.net
 127.0.0.1 baskidunyasi.net
 127.0.0.1 bat.bing.com
 127.0.0.1 batch.upsight-api.com
@@ -3999,7 +4000,6 @@
 127.0.0.1 bo.goadservices.com
 127.0.0.1 boardgamearena.fr
 127.0.0.1 bob.dmpxs.com
-127.0.0.1 bobcard.co.in
 127.0.0.1 bobgear.fr
 127.0.0.1 bodelen.com
 127.0.0.1 bodyfitness-epernon.fr
@@ -5633,6 +5633,7 @@
 127.0.0.1 cpxigen865632366955.s.moatpixel.com
 127.0.0.1 cra-arc-gc-ca.noads.biz
 127.0.0.1 cra-etransfer.online
+127.0.0.1 crarefundsreview.com
 127.0.0.1 crash.163.com
 127.0.0.1 crasheye.cn
 127.0.0.1 crb.kargo.com
@@ -5751,6 +5752,7 @@
 127.0.0.1 custom.yieldify.com
 127.0.0.1 customer.cludo.com
 127.0.0.1 customer.iad-03.braze.com
+127.0.0.1 customsoftwaredeveloper.com.au
 127.0.0.1 customtraffic.impactradius.com
 127.0.0.1 cutesaucepuppy.com
 127.0.0.1 cvt.mydas.mobi
@@ -6676,6 +6678,7 @@
 127.0.0.1 en.btcprofit.we-trck.com
 127.0.0.1 en.likefever.org
 127.0.0.1 en.ultrex.ru
+127.0.0.1 enablement.joethecpa.info
 127.0.0.1 enalytics.fr
 127.0.0.1 encyclopediabritannica.blueconic.net
 127.0.0.1 end.scorecardresearch.com
@@ -9552,6 +9555,7 @@
 127.0.0.1 losu.112.2o7.net
 127.0.0.1 louisvil.app.ur.gcion.com
 127.0.0.1 louisvil.ur.gcion.com
+127.0.0.1 love-quest.blog
 127.0.0.1 lovedonesproducts.com
 127.0.0.1 lovelydrum.com
 127.0.0.1 lovittco.com.au
@@ -9685,6 +9689,7 @@
 127.0.0.1 magic-flight.fr
 127.0.0.1 magic.cmcm.com
 127.0.0.1 magicalipone.com
+127.0.0.1 magicpayrecharge.com
 127.0.0.1 magnetic.t.domdex.com
 127.0.0.1 magnum.cdn.speedshiftmedia.com
 127.0.0.1 magyarkozosseg.net
@@ -9745,6 +9750,7 @@
 127.0.0.1 marfeel.com
 127.0.0.1 margaretanddavid.com
 127.0.0.1 marie-gerardmer.fr
+127.0.0.1 marigo.redbacksburger.info
 127.0.0.1 marinescence.fr
 127.0.0.1 marinsm.com
 127.0.0.1 market-dev.s-onetag.com
@@ -11035,6 +11041,7 @@
 127.0.0.1 oh.5.p2l.info
 127.0.0.1 ohmydating.com
 127.0.0.1 oimsgad.qq.com
+127.0.0.1 ois.is
 127.0.0.1 oiseau-perdu.fr
 127.0.0.1 oix.com
 127.0.0.1 oix.net
@@ -11313,6 +11320,7 @@
 127.0.0.1 p5.preppypm.com
 127.0.0.1 p6.preppypm.com
 127.0.0.1 p7.preppypm.com
+127.0.0.1 pa-cd.com
 127.0.0.1 pa-voyance.fr
 127.0.0.1 pa.5.p2l.info
 127.0.0.1 paalp.fr
@@ -11363,6 +11371,7 @@
 127.0.0.1 paperg.com
 127.0.0.1 par.vip.prod.criteo.com
 127.0.0.1 par.vip.prod.criteo.net
+127.0.0.1 paradise.homemortgageblog.info
 127.0.0.1 parafiaukta.pl
 127.0.0.1 param.lionmobi.com
 127.0.0.1 parameter.lionmobi.com
@@ -11400,6 +11409,7 @@
 127.0.0.1 partners.webmasterplan.com
 127.0.0.1 passeura.com
 127.0.0.1 passivemarcoanyhow.com
+127.0.0.1 passport.acla.org.cn
 127.0.0.1 passportindex.fr
 127.0.0.1 passpport.com
 127.0.0.1 pasta.da.duapps.com
@@ -11974,6 +11984,7 @@
 127.0.0.1 prod.pr.analytics.console.aws.a2z.com
 127.0.0.1 prod.pw.analytics.console.aws.a2z.com
 127.0.0.1 prod.sift.co
+127.0.0.1 prodentim101.com
 127.0.0.1 production-adkviewtrackingtagserver.ap-northeast-1.elasticbeanstalk.com
 127.0.0.1 production-cmp.isgprivacy.cbsi.com
 127.0.0.1 production.wootric.com
@@ -12100,6 +12111,7 @@
 127.0.0.1 ptirgaux.com
 127.0.0.1 ptrads.mp3.com
 127.0.0.1 pttsite.com
+127.0.0.1 pub-251d6c694a0641dd9e95aeca9e3219e8.r2.dev
 127.0.0.1 pub-sdk-cfg.criteo.com
 127.0.0.1 pub.doubleverify.com
 127.0.0.1 pub.funshion.com
@@ -13620,6 +13632,7 @@
 127.0.0.1 sobolev.net.ru
 127.0.0.1 socdm.com
 127.0.0.1 sochr.com
+127.0.0.1 sociagil.fr
 127.0.0.1 social.bidsystem.com
 127.0.0.1 socialcanvas-cdn.kargo.com
 127.0.0.1 sociaplus.com
@@ -14193,6 +14206,7 @@
 127.0.0.1 suckdude.com
 127.0.0.1 suddenplot.com
 127.0.0.1 sudokuwhiz.com
+127.0.0.1 suenosurcolchones.com.ar.abakotest.com.ar
 127.0.0.1 sugoicounter.com
 127.0.0.1 suhunsoo.uk
 127.0.0.1 suicidaltendencies.fr
@@ -14772,6 +14786,7 @@
 127.0.0.1 tn.5.p2l.info
 127.0.0.1 tnc16-alisg.isnssdk.com
 127.0.0.1 tnc16-useast1a.isnssdk.com
+127.0.0.1 tnews.day
 127.0.0.1 tnkfactory.com
 127.0.0.1 tnttv.112.2o7.net
 127.0.0.1 toads.osdn.com
@@ -14850,6 +14865,7 @@
 127.0.0.1 tr-asia.adsmoloco.com
 127.0.0.1 tr-eu.adsmoloco.com
 127.0.0.1 tr-gmtdmp.mookie1.com
+127.0.0.1 tr-red.lamanoqueayuda.org
 127.0.0.1 tr-romsp-unifyconfig.vivoglobal.com
 127.0.0.1 tr-st-sl.vivoglobal.com
 127.0.0.1 tr-us.adsmoloco.com
@@ -15242,6 +15258,7 @@
 127.0.0.1 ttoc8ok.com
 127.0.0.1 ttplugins.ttpsdk.info
 127.0.0.1 tubemogul154237275611.s.moatpixel.com
+127.0.0.1 tubero.ellystegge.info
 127.0.0.1 tubgirl.me
 127.0.0.1 tubgirl.org
 127.0.0.1 tubr8.fr
@@ -15474,6 +15491,7 @@
 127.0.0.1 url-hoster.com
 127.0.0.1 url-redirect.com
 127.0.0.1 url2all.net
+127.0.0.1 url3781.host.inreception.com
 127.0.0.1 url9810.tokocrypto.com
 127.0.0.1 urlconnection.net
 127.0.0.1 urlcut.net
@@ -16667,6 +16685,7 @@
 127.0.0.1 www.cadaver.org
 127.0.0.1 www.cadvision.com
 127.0.0.1 www.cafecoquin.com
+127.0.0.1 www.calnanflack.com
 127.0.0.1 www.cam4.fr
 127.0.0.1 www.cambonanza.com
 127.0.0.1 www.camion.idps.co.uk
@@ -16794,6 +16813,7 @@
 127.0.0.1 www.debbo.plus.com
 127.0.0.1 www.deelen-wageningen.nl
 127.0.0.1 www.defaultinternet.com
+127.0.0.1 www.dejamesertuvoz.com
 127.0.0.1 www.delton.com
 127.0.0.1 www.derekrjones.plus.com
 127.0.0.1 www.designbloxlive.com
@@ -16820,6 +16840,7 @@
 127.0.0.1 www.dwclick.com
 127.0.0.1 www.e-bannerx.com
 127.0.0.1 www.e-transfer-cra.com
+127.0.0.1 www.eaglesfanclub.com
 127.0.0.1 www.eastwood35.idps.co.uk
 127.0.0.1 www.easy2date.net
 127.0.0.1 www.easyadservice.com
@@ -16851,6 +16872,7 @@
 127.0.0.1 www.fatcatrewards.com
 127.0.0.1 www.feedstermedia.com
 127.0.0.1 www.fetisch-pornos.cxa.de
+127.0.0.1 www.fhtmmeeting.com
 127.0.0.1 www.ficken-ficken-ficken.cxa.de
 127.0.0.1 www.ficken-xxx.cxa.de
 127.0.0.1 www.filezilla.fr
@@ -16964,6 +16986,7 @@
 127.0.0.1 www.heusmarketing.nl
 127.0.0.1 www.hibids10.com
 127.0.0.1 www.hieroglyph.freeuk.com
+127.0.0.1 www.hiewa.com.my
 127.0.0.1 www.hightrafficads.com
 127.0.0.1 www.hiroden-con.jp
 127.0.0.1 www.histats.com
@@ -17453,6 +17476,7 @@
 127.0.0.1 www.thinktarget.com
 127.0.0.1 www.thruport.com
 127.0.0.1 www.thunderbird.es
+127.0.0.1 www.tiompanalley.com
 127.0.0.1 www.tlauder.f9.co.uk
 127.0.0.1 www.tns-counter.ru
 127.0.0.1 www.toolbarcounter.com
@@ -17594,6 +17618,7 @@
 127.0.0.1 www.xxxnations.com
 127.0.0.1 www.xxxtoolbar.com
 127.0.0.1 www.yceml.net
+127.0.0.1 www.yendermsoul.com
 127.0.0.1 www.yieldmanager.net
 127.0.0.1 www.yieldpartners.com
 127.0.0.1 www.youaresogay.com
@@ -17865,6 +17890,7 @@
 127.0.0.1 yourgiftrewards.com
 127.0.0.1 yourgiftzone.com
 127.0.0.1 youripad4free.com
+127.0.0.1 yourofficialsurveysplace.store
 127.0.0.1 yourrewardzone.com
 127.0.0.1 yoursmartrewards.com
 127.0.0.1 youtube.112.2o7.net
