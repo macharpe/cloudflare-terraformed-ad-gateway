@@ -1,7 +1,7 @@
 # Combined ad-blocking domain list
 # Sources: adaway easylist
-# Generated: 2026-08-15 10:16:28 UTC
-# Total domains: 19146
+# Generated: 2026-08-31 09:50:24 UTC
+# Total domains: 19183
 #
 127.0.0.1 0.nextyourcontent.com
 127.0.0.1 00000.uno
@@ -72,6 +72,7 @@
 127.0.0.1 1uk.cqcounter.com
 127.0.0.1 1us.cqcounter.com
 127.0.0.1 1xxx.cqcounter.com
+127.0.0.1 2.maaqkj.com
 127.0.0.1 2.marketbanker.com
 127.0.0.1 2.speedknow.co
 127.0.0.1 2000greetings.com
@@ -102,6 +103,7 @@
 127.0.0.1 24trk.com
 127.0.0.1 24x7.soliday.org
 127.0.0.1 25184.hittail.com
+127.0.0.1 2533542.cc
 127.0.0.1 2578.api.swrve.com
 127.0.0.1 2578.content.swrve.com
 127.0.0.1 2712.api.swrve.com
@@ -6407,6 +6409,7 @@
 127.0.0.1 dr.soso.com
 127.0.0.1 dra.amazon-adsystem.com
 127.0.0.1 draco-artgallery.wz.cz
+127.0.0.1 dragonfly-express.duckdns.org
 127.0.0.1 dramatic-challenge.com
 127.0.0.1 dreammates.112.2o7.net
 127.0.0.1 drecentreshu.info
@@ -12464,6 +12467,7 @@
 127.0.0.1 purchase.hut1.ru
 127.0.0.1 purchasingpower.fr
 127.0.0.1 purepods.fr
+127.0.0.1 purolatorkbtdh.eu.cc
 127.0.0.1 purryowl.com
 127.0.0.1 push-ad.com
 127.0.0.1 push-api.topaz-analytics.com
@@ -14587,6 +14591,7 @@
 127.0.0.1 supply.inmobicdn.net
 127.0.0.1 support-ip.com
 127.0.0.1 support.sweepstakes.com
+127.0.0.1 supportservice-dragonfly.duckdns.org
 127.0.0.1 suprama.online
 127.0.0.1 surfindave.com
 127.0.0.1 surfsecured.net
@@ -15823,6 +15828,7 @@
 127.0.0.1 uole.ad.uol.com.br
 127.0.0.1 uop.umeng.com
 127.0.0.1 upalytics.com
+127.0.0.1 upbeatbut.com
 127.0.0.1 update-expiry-notification-report.appwrite.network
 127.0.0.1 update.3lift.com
 127.0.0.1 update.adsrvr.org
@@ -17038,6 +17044,7 @@
 127.0.0.1 www.autohipnose.com
 127.0.0.1 www.autoinkoopbedrijf.com
 127.0.0.1 www.automotive-offer.com
+127.0.0.1 www.autotra.com
 127.0.0.1 www.availablefiles.com
 127.0.0.1 www.avemoo.com
 127.0.0.1 www.avenues-inc.com
@@ -17204,6 +17211,7 @@
 127.0.0.1 www.catabcde.com
 127.0.0.1 www.cati.com.tw
 127.0.0.1 www.catjre.com
+127.0.0.1 www.cdinstagram.com
 127.0.0.1 www.cdn.taboola.com
 127.0.0.1 www.cdn4ads.com
 127.0.0.1 www.celestia.es
@@ -17450,6 +17458,7 @@
 127.0.0.1 www.electrobell.com
 127.0.0.1 www.elfralalo.com
 127.0.0.1 www.eljaleomedellin.com
+127.0.0.1 www.ellesalonhb.com
 127.0.0.1 www.emadesign.net
 127.0.0.1 www.emailspend.com
 127.0.0.1 www.emarketmakers.com
@@ -17506,6 +17515,7 @@
 127.0.0.1 www.ficken-xxx.cxa.de
 127.0.0.1 www.filezilla.fr
 127.0.0.1 www.finance-offer.com
+127.0.0.1 www.financevd.com
 127.0.0.1 www.findalgorithm.com
 127.0.0.1 www.findalign.com
 127.0.0.1 www.findlobster.com
@@ -17627,6 +17637,7 @@
 127.0.0.1 www.gimp.es
 127.0.0.1 www.glassygrovefy.pro
 127.0.0.1 www.globalbuffer.com
+127.0.0.1 www.globlepoker.com
 127.0.0.1 www.gm4pgv.plus.com
 127.0.0.1 www.gmads.net
 127.0.0.1 www.goat.cx
@@ -17657,6 +17668,7 @@
 127.0.0.1 www.greenshot.fr
 127.0.0.1 www.greenvistazj.pro
 127.0.0.1 www.griffinlist.com
+127.0.0.1 www.griffscomedyclub.com
 127.0.0.1 www.grocreyoutlet.com
 127.0.0.1 www.groundofsuccess.com
 127.0.0.1 www.grouphappy.com
@@ -17669,6 +17681,7 @@
 127.0.0.1 www.gwizacademy.com
 127.0.0.1 www.hai2u.com
 127.0.0.1 www.haikuservices.com
+127.0.0.1 www.hairapothecaryco.com
 127.0.0.1 www.hajoopteg.com
 127.0.0.1 www.hakerzy.net
 127.0.0.1 www.handbrake.es
@@ -17818,6 +17831,8 @@
 127.0.0.1 www.kinderstampo.com
 127.0.0.1 www.kindnations.com
 127.0.0.1 www.kindwebdg.site
+127.0.0.1 www.kingfreetube.com
+127.0.0.1 www.kishangarhlawcollege.com
 127.0.0.1 www.kitaramarketplace.com
 127.0.0.1 www.kitaramedia.com
 127.0.0.1 www.kitchentablegang.org
@@ -17888,9 +17903,11 @@
 127.0.0.1 www.linkpulse.com
 127.0.0.1 www.linkredirect.biz
 127.0.0.1 www.linkwithin.com
+127.0.0.1 www.listadegames.com
 127.0.0.1 www.littledevildoubt.com
 127.0.0.1 www.liveadexchanger.com
 127.0.0.1 www.liveorigamirisk.com
+127.0.0.1 www.livetickettv.com
 127.0.0.1 www.loansfield.com
 127.0.0.1 www.loboclick.com
 127.0.0.1 www.localytics.com
@@ -18022,6 +18039,7 @@
 127.0.0.1 www.myhucadvantage.com
 127.0.0.1 www.mylike.co.uk
 127.0.0.1 www.mylovecards.com
+127.0.0.1 www.mynepalshop.com
 127.0.0.1 www.myrosinase.com
 127.0.0.1 www.myseostats.com
 127.0.0.1 www.myuitm.com
@@ -18047,6 +18065,7 @@
 127.0.0.1 www.neonracketpro.com
 127.0.0.1 www.neptuneads.com
 127.0.0.1 www.neszmely.eu
+127.0.0.1 www.netnaiga.com
 127.0.0.1 www.new2crypto.com
 127.0.0.1 www.newmedia.plus.com
 127.0.0.1 www.newnorth.net
@@ -18093,6 +18112,7 @@
 127.0.0.1 www.odyssey.on.ca
 127.0.0.1 www.offerx.co.uk
 127.0.0.1 www.officerreport.com
+127.0.0.1 www.ofimaniaweb.com
 127.0.0.1 www.ogopond.com
 127.0.0.1 www.oilbasics.com
 127.0.0.1 www.oix.com
@@ -18134,9 +18154,11 @@
 127.0.0.1 www.paintnet.fr
 127.0.0.1 www.palaceskateboard.com
 127.0.0.1 www.paperg.com
+127.0.0.1 www.paradisepcgames.com
 127.0.0.1 www.paramutplus.com
 127.0.0.1 www.parejaamateur.com
 127.0.0.1 www.parsads.com
+127.0.0.1 www.partilla.com
 127.0.0.1 www.partsttown.com
 127.0.0.1 www.partycasino.com
 127.0.0.1 www.paseyourself.com
@@ -18168,6 +18190,7 @@
 127.0.0.1 www.pfsim.com
 127.0.0.1 www.phantomluck.com
 127.0.0.1 www.phoenixads.co.in
+127.0.0.1 www.phonecex.com
 127.0.0.1 www.phonejapan.com
 127.0.0.1 www.phonenumberbook.com
 127.0.0.1 www.phorm.com
@@ -18200,6 +18223,7 @@
 127.0.0.1 www.pomp-buerotechnik.de
 127.0.0.1 www.ponhap.com
 127.0.0.1 www.poponclick.com
+127.0.0.1 www.popshopeu.com
 127.0.0.1 www.popup.taboola.com
 127.0.0.1 www.popupad.net
 127.0.0.1 www.popupdomination.com
@@ -18259,8 +18283,10 @@
 127.0.0.1 www.quartersnorth.lat
 127.0.0.1 www.quarvions.com
 127.0.0.1 www.quickbrowsersearch.com
+127.0.0.1 www.quintaalegrealgarve.com
 127.0.0.1 www.quintingwatches.com
 127.0.0.1 www.quipla.com
+127.0.0.1 www.quotling.com
 127.0.0.1 www.rackusread.com
 127.0.0.1 www.radiate.com
 127.0.0.1 www.rajtoursdubai.com
@@ -18349,6 +18375,7 @@
 127.0.0.1 www.searchv.com
 127.0.0.1 www.searchwe.com
 127.0.0.1 www.securerunner.com
+127.0.0.1 www.securitymeyrics.com
 127.0.0.1 www.securityplusproducts.com
 127.0.0.1 www.securityscan.us
 127.0.0.1 www.seductiveamateurs.com
@@ -18519,6 +18546,7 @@
 127.0.0.1 www.tenantbackgronudsearch.com
 127.0.0.1 www.teresinaapartment.com
 127.0.0.1 www.terraclicks.com
+127.0.0.1 www.texasmyxoomenergy.com
 127.0.0.1 www.text-link-ads.com
 127.0.0.1 www.textbanners.net
 127.0.0.1 www.textdynamics.com
@@ -18541,6 +18569,7 @@
 127.0.0.1 www.thepounder.com
 127.0.0.1 www.theprimeindia.com
 127.0.0.1 www.thepringlefamily.plus.com
+127.0.0.1 www.thermature.com
 127.0.0.1 www.thesecuredtrader.com
 127.0.0.1 www.theskinnyschool.com
 127.0.0.1 www.thetraderinpajamas.com
@@ -18551,6 +18580,7 @@
 127.0.0.1 www.thisplanet.net
 127.0.0.1 www.thruport.com
 127.0.0.1 www.thunderbird.es
+127.0.0.1 www.ticketspiket.com
 127.0.0.1 www.timelyworks.com
 127.0.0.1 www.tinkfrog.com
 127.0.0.1 www.tiompanalley.com
@@ -18563,7 +18593,9 @@
 127.0.0.1 www.topcashvibes.com
 127.0.0.1 www.topconsumergifts.com
 127.0.0.1 www.topdemaroc.com
+127.0.0.1 www.topluckystars.com
 127.0.0.1 www.topmeds10.com
+127.0.0.1 www.topopulentwin.com
 127.0.0.1 www.topreward.site
 127.0.0.1 www.topsecretmagic.co.uk
 127.0.0.1 www.topworld.nl
@@ -18588,8 +18620,10 @@
 127.0.0.1 www.traficsigntest.com
 127.0.0.1 www.trafsearchonline.com
 127.0.0.1 www.traktrafficflow.com
+127.0.0.1 www.transcet.com
 127.0.0.1 www.tranzit124.cz
 127.0.0.1 www.traveladvertising.com
+127.0.0.1 www.travelrushzone.com
 127.0.0.1 www.trc.taboola.com
 127.0.0.1 www.treeloot.com
 127.0.0.1 www.trendcounter.com
@@ -18621,8 +18655,10 @@
 127.0.0.1 www.u1trkqf.com
 127.0.0.1 www.ugdturner.com
 127.0.0.1 www.ukbanners.com
+127.0.0.1 www.ultimarerewards.com
 127.0.0.1 www.ultimatecounter.com
 127.0.0.1 www.ultratemps.com
+127.0.0.1 www.unclaimedbaggag.com
 127.0.0.1 www.underobviously.garden
 127.0.0.1 www.unetbootin.net
 127.0.0.1 www.unetbootin.org
@@ -18639,6 +18675,7 @@
 127.0.0.1 www.users.dialstart.net
 127.0.0.1 www.users.freenetname.co.uk
 127.0.0.1 www.utarget.co.uk
+127.0.0.1 www.utgzlogin.com
 127.0.0.1 www.v61.com
 127.0.0.1 www.vacnleefarpels.com
 127.0.0.1 www.valueclick.com
