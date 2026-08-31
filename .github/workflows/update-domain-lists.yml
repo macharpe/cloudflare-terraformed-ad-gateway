@@ -21,7 +21,6 @@ jobs:
       id-token: write
       contents: write
       pull-requests: write
-      actions: write
 
     steps:
       - name: 📂 Checkout Branch
@@ -109,7 +108,7 @@ jobs:
           RUN_ID: ${{ github.run_id }}
           REF_NAME: ${{ github.ref_name }}
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTOMATION_PAT }}
           title: 'Update Domain Lists'
           branch-suffix: timestamp
           commit-message: |
@@ -132,27 +131,6 @@ jobs:
             ### Next Steps
             After merging, Terraform will automatically update the Cloudflare Zero Trust lists.
 
-      - name: 🔐 Trigger Semgrep Security Scan
-        if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
-        run: |
-          PR_NUMBER="$PR_NUMBER"
-          if [ -z "$PR_NUMBER" ]; then
-            PR_NUMBER=$(gh pr list --head "create-pull-request/patch" --state open --json number --jq '.[0].number')
-          fi
-
-          if [ -n "$PR_NUMBER" ]; then
-            echo "Triggering Semgrep scan for PR #$PR_NUMBER"
-            # Get the branch name for the PR
-            BRANCH=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.headRefName')
-            echo "Branch: $BRANCH"
-
-            # Trigger the Semgrep workflow on the PR branch
-            gh workflow run semgrep-security-scan.yml --ref "$BRANCH" || echo "Warning: Could not trigger Semgrep workflow"
-          fi
-
       - name: ⏳ Wait for Status Checks
         if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
         env:
@@ -165,32 +143,34 @@ jobs:
           fi
 
           if [ -n "$PR_NUMBER" ]; then
-            SHA=$(gh pr view "$PR_NUMBER" --json headRefOid --jq '.headRefOid')
-            echo "Waiting for Security Scan with Semgrep check on PR #$PR_NUMBER (commit $SHA)..."
-            # Wait up to 5 minutes for the check to complete
-            # Note: this check is dispatched via workflow_dispatch, so it never appears in
-            # the PR's GraphQL statusCheckRollup (that only reflects pull_request-triggered
-            # check suites) -- poll the commit's REST check-runs instead, which is accurate.
+            echo "Waiting for status checks on PR #$PR_NUMBER..."
+            # PR was created with AUTOMATION_PAT, so its pull_request event fires
+            # semgrep-security-scan.yml natively -- that check is properly associated
+            # with the PR and shows up in statusCheckRollup, unlike a workflow_dispatch run.
             MAX_ATTEMPTS=30
             ATTEMPT=0
 
             while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-              echo "Attempt $((ATTEMPT + 1))/$MAX_ATTEMPTS: Checking Semgrep status..."
+              echo "Attempt $((ATTEMPT + 1))/$MAX_ATTEMPTS: Checking PR status..."
 
-              CHECK_RUN=$(gh api "repos/${{ github.repository }}/commits/$SHA/check-runs" --jq '.check_runs[] | select(.name == "Security Scan with Semgrep")')
-              STATUS=$(echo "$CHECK_RUN" | jq -r '.status // empty')
-              CONCLUSION=$(echo "$CHECK_RUN" | jq -r '.conclusion // empty')
+              CHECK_RESULTS=$(gh pr view "$PR_NUMBER" --json statusCheckRollup --jq '.statusCheckRollup[] | {name: (.name // .context), status: (.conclusion // .state), completed: ((.conclusion // .state) != null)}')
+              PENDING_COUNT=$(echo "$CHECK_RESULTS" | jq -s '[.[] | select(.completed == false)] | length')
 
-              if [ "$STATUS" == "completed" ]; then
-                if [ "$CONCLUSION" == "success" ] || [ "$CONCLUSION" == "neutral" ] || [ "$CONCLUSION" == "skipped" ]; then
-                  echo "Semgrep check passed!"
-                  break
-                else
-                  echo "Semgrep check failed with conclusion: $CONCLUSION"
+              if [ "$PENDING_COUNT" -eq 0 ]; then
+                echo "All checks completed!"
+                FAILED_CHECKS=$(echo "$CHECK_RESULTS" | jq -s '[.[] | select(.status != "SUCCESS" and .status != "SKIPPED" and .status != "NEUTRAL")] | length')
+
+                if [ "$FAILED_CHECKS" -gt 0 ]; then
+                  echo "Some checks failed. Check details:"
+                  gh pr checks "$PR_NUMBER"
                   exit 1
+                else
+                  echo "All checks passed!"
+                  break
                 fi
               else
-                echo "Semgrep check not yet completed (status: ${STATUS:-not started})..."
+                echo "Waiting for $PENDING_COUNT check(s) to complete..."
+                echo "$CHECK_RESULTS" | jq -s '.[] | select(.completed == false) | .name'
               fi
 
               ATTEMPT=$((ATTEMPT + 1))
@@ -198,12 +178,13 @@ jobs:
             done
 
             if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
-              echo "Timeout waiting for Semgrep check."
+              echo "Timeout waiting for checks. Current status:"
+              gh pr checks "$PR_NUMBER"
               exit 1
             fi
           fi
 
-      - name: 🔀 Squash Merge via Direct Push
+      - name: 🔀 Squash and Merge PR
         if: steps.create-pr.outputs.pull-request-operation == 'created' || steps.create-pr.outputs.pull-request-operation == 'updated'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -215,26 +196,8 @@ jobs:
           fi
 
           if [ -n "$PR_NUMBER" ]; then
-            # gh pr merge cannot see this PR's Semgrep check (workflow_dispatch-triggered
-            # check suites never populate the PR's statusCheckRollup), so branch protection's
-            # required-status-check gate can never be satisfied through the normal merge API.
-            # The Semgrep check was already independently confirmed to pass in the previous
-            # step, so squash-merge by pushing directly to main instead.
-            BRANCH=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.headRefName')
-            TITLE=$(gh pr view "$PR_NUMBER" --json title --jq '.title')
-
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-            git fetch origin main "$BRANCH"
-            git checkout main
-            git reset --hard origin/main
-            git merge --squash "origin/$BRANCH"
-            git commit -m "$TITLE (#$PR_NUMBER)"
-            git push origin main
-
-            gh pr close "$PR_NUMBER" --comment "Merged directly to main via automated squash push (the Semgrep check from this workflow's dispatch cannot be recognized by GitHub's PR merge API)."
-            git push origin --delete "$BRANCH" || echo "Branch already deleted or not found"
+            echo "Merging PR #$PR_NUMBER"
+            gh pr merge "$PR_NUMBER" --squash
           else
             echo "No PR number found to merge"
             exit 1
