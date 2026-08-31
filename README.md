@@ -69,11 +69,15 @@ graph LR
    | `cloudflare_account_id` | Terraform variable | No | Your Cloudflare account ID |
    | `cloudflare_api_token` | Terraform variable | Yes | Your Cloudflare API token (created above) |
 
-3. **Domain Lists**:
+3. **Configure GitHub Actions Secrets** (for automated domain list updates):
+   - `TF_API_TOKEN`: Terraform Cloud API token, used by Terraform-related checks
+   - `AUTOMATION_PAT`: a fine-grained personal access token scoped to this repository (`Contents: write`, `Pull requests: write`), belonging to a repository admin — required so the monthly "Update Domain Lists" workflow can open pull requests that trigger the Semgrep security scan and auto-merge once it passes
+
+4. **Domain Lists**:
    - Domain lists are automatically generated from configured sources
    - The combined list is stored in `lists/pihole_domain_list.txt`
 
-4. **Deploy**:
+5. **Deploy**:
 
    ```bash
    terraform init
@@ -119,11 +123,16 @@ The policy can be customized by modifying `main.tf`:
 
 #### Automatic Updates (Recommended)
 
-Use the GitHub Actions workflow:
-1. Go to Actions tab in your repository
-2. Run "Update Domain Lists" workflow
-3. Choose sources to update (or use default: AdAway + EasyList)
-4. Workflow creates a PR with updated domain lists
+The "Update Domain Lists" GitHub Actions workflow runs monthly (or on demand) and is fully automated end to end:
+
+1. Fetches and combines the configured domain sources
+2. Opens a pull request with the updated `lists/pihole_domain_list.txt`
+3. Waits for the pull request's Semgrep security scan to pass
+4. Merges the pull request automatically, which triggers Terraform Cloud to apply the updated lists to Cloudflare
+
+To trigger it manually: go to the Actions tab → "Update Domain Lists" → Run workflow → choose sources (or use the default: AdAway + EasyList).
+
+This workflow requires a repository secret named `AUTOMATION_PAT` — a fine-grained personal access token (scoped to this repository, with `Contents: write` and `Pull requests: write`) belonging to a repository admin. It's used only to open the pull request, so that its Semgrep scan runs as a normal, properly-checked pull request rather than a disconnected manual trigger.
 
 ## Domain List Format
 
@@ -165,8 +174,11 @@ cloudflare-terraformed-ad-gateway/
 ├── LICENSE                      # GPL v3 License
 ├── lists/                       # Domain lists
 │   └── pihole_domain_list.txt   # Combined domain list (127.0.0.1 format)
-├── .github/workflows/           # GitHub Actions
-│   └── update-domain-lists.yml  # Automated domain list updates
+├── .github/
+│   ├── dependabot.yml            # Automated dependency updates (github-actions, terraform)
+│   └── workflows/                # GitHub Actions
+│       ├── update-domain-lists.yml    # Automated domain list updates
+│       └── semgrep-security-scan.yml  # Required Semgrep security scan
 └── Terraform files:             # Infrastructure as Code
     ├── data-sources.tf          # HTTP data sources for remote lists
     ├── domain-lists.tf          # Zero Trust list resources
@@ -176,6 +188,13 @@ cloudflare-terraformed-ad-gateway/
     ├── provider.tf             # Provider configuration
     └── variables.tf            # Input variables and validation
 ```
+
+## Security
+
+- **Semgrep Security Scan**: runs on every push, pull request, and weekly on a schedule, checking Terraform and CI configuration for security issues. It's a required status check — no pull request can merge without it passing.
+- **Pinned GitHub Actions**: every third-party action used in the workflows is pinned to an immutable commit SHA (not a mutable version tag) to prevent supply-chain tampering.
+- **Dependabot**: configured via `.github/dependabot.yml` for the `github-actions` and `terraform` ecosystems, with a 7-day update cooldown, so new action/provider versions are proposed automatically rather than left to go stale.
+- **Secret scanning & push protection**: enabled on the repository, blocking commits that contain a detectable secret before they land.
 
 ## Monitoring
 
