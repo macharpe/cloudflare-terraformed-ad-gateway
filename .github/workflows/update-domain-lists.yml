@@ -211,4 +211,9 @@ jobs:
 
             if [ "$MERGED" != "true" ]; then
               echo "Failed to merge PR #$PR_NUMBER"
-              ex
+              exit 1
+            fi
+          else
+            echo "No PR number found to merge"
+            exit 1
+          fi
