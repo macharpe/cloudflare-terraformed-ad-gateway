@@ -197,7 +197,18 @@ jobs:
 
           if [ -n "$PR_NUMBER" ]; then
             echo "Merging PR #$PR_NUMBER"
-            gh pr merge "$PR_NUMBER" --squash
+            # GitHub's cached mergeable_state can briefly lag behind the real check
+            # results just after they complete, causing gh pr merge to report "blocked"
+            # even though the PR is actually mergeable -- retry a few times.
+            for i in 1 2 3 4 5; do
+              if gh pr merge "$PR_NUMBER" --squash; then
+                exit 0
+              fi
+              echo "Merge attempt $i failed, retrying in 15s..."
+              sleep 15
+            done
+            echo "Failed to merge PR #$PR_NUMBER after retries."
+            exit 1
           else
             echo "No PR number found to merge"
             exit 1
