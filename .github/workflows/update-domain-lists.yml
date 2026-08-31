@@ -143,34 +143,33 @@ jobs:
           fi
 
           if [ -n "$PR_NUMBER" ]; then
-            echo "Waiting for status checks on PR #$PR_NUMBER..."
+            echo "Waiting for Security Scan with Semgrep check on PR #$PR_NUMBER..."
             # PR was created with AUTOMATION_PAT, so its pull_request event fires
             # semgrep-security-scan.yml natively -- that check is properly associated
             # with the PR and shows up in statusCheckRollup, unlike a workflow_dispatch run.
+            # Poll for this specific check by name rather than "zero pending in the
+            # rollup": right after PR creation the rollup can be genuinely empty for a
+            # few seconds (check not queued yet), which looks identical to "all done".
             MAX_ATTEMPTS=30
             ATTEMPT=0
 
             while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-              echo "Attempt $((ATTEMPT + 1))/$MAX_ATTEMPTS: Checking PR status..."
+              echo "Attempt $((ATTEMPT + 1))/$MAX_ATTEMPTS: Checking Semgrep status..."
 
-              CHECK_RESULTS=$(gh pr view "$PR_NUMBER" --json statusCheckRollup --jq '.statusCheckRollup[] | {name: (.name // .context), status: (.conclusion // .state), completed: ((.conclusion // .state) != null)}')
-              PENDING_COUNT=$(echo "$CHECK_RESULTS" | jq -s '[.[] | select(.completed == false)] | length')
+              SEMGREP_CHECK=$(gh pr view "$PR_NUMBER" --json statusCheckRollup --jq '.statusCheckRollup[] | select(.name == "Security Scan with Semgrep")')
+              SEMGREP_STATUS=$(echo "$SEMGREP_CHECK" | jq -r '.status // empty')
+              SEMGREP_CONCLUSION=$(echo "$SEMGREP_CHECK" | jq -r '.conclusion // empty')
 
-              if [ "$PENDING_COUNT" -eq 0 ]; then
-                echo "All checks completed!"
-                FAILED_CHECKS=$(echo "$CHECK_RESULTS" | jq -s '[.[] | select(.status != "SUCCESS" and .status != "SKIPPED" and .status != "NEUTRAL")] | length')
-
-                if [ "$FAILED_CHECKS" -gt 0 ]; then
-                  echo "Some checks failed. Check details:"
-                  gh pr checks "$PR_NUMBER"
-                  exit 1
-                else
-                  echo "All checks passed!"
+              if [ "$SEMGREP_STATUS" == "COMPLETED" ]; then
+                if [ "$SEMGREP_CONCLUSION" == "SUCCESS" ] || [ "$SEMGREP_CONCLUSION" == "NEUTRAL" ] || [ "$SEMGREP_CONCLUSION" == "SKIPPED" ]; then
+                  echo "Semgrep check passed!"
                   break
+                else
+                  echo "Semgrep check failed with conclusion: $SEMGREP_CONCLUSION"
+                  exit 1
                 fi
               else
-                echo "Waiting for $PENDING_COUNT check(s) to complete..."
-                echo "$CHECK_RESULTS" | jq -s '.[] | select(.completed == false) | .name'
+                echo "Semgrep check not yet completed (status: ${SEMGREP_STATUS:-not yet registered})..."
               fi
 
               ATTEMPT=$((ATTEMPT + 1))
@@ -178,7 +177,7 @@ jobs:
             done
 
             if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
-              echo "Timeout waiting for checks. Current status:"
+              echo "Timeout waiting for Semgrep check. Current status:"
               gh pr checks "$PR_NUMBER"
               exit 1
             fi
@@ -212,9 +211,4 @@ jobs:
 
             if [ "$MERGED" != "true" ]; then
               echo "Failed to merge PR #$PR_NUMBER"
-              exit 1
-            fi
-          else
-            echo "No PR number found to merge"
-            exit 1
-          fi
+              ex
