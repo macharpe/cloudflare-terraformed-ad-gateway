@@ -1,7 +1,7 @@
 # Combined ad-blocking domain list
 # Sources: adaway easylist
-# Generated: 2026-08-31 10:31:33 UTC
-# Total domains: 19183
+# Generated: 2026-09-15 14:35:18 UTC
+# Total domains: 19207
 #
 127.0.0.1 0.nextyourcontent.com
 127.0.0.1 00000.uno
@@ -1706,7 +1706,6 @@
 127.0.0.1 ads.rcgroups.com
 127.0.0.1 ads.rd.linksynergy.com
 127.0.0.1 ads.rdstore.com
-127.0.0.1 ads.realcastmedia.com
 127.0.0.1 ads.realcities.com
 127.0.0.1 ads.realmedia.de
 127.0.0.1 ads.rediff.com
@@ -5135,9 +5134,11 @@
 127.0.0.1 clean-mobilephone.com
 127.0.0.1 clean.adups.com
 127.0.0.1 cleanchain.net
+127.0.0.1 cleancrdio.shop
 127.0.0.1 cleaningformac.com
 127.0.0.1 cleanmobilephone.com
 127.0.0.1 clearonclick.com
+127.0.0.1 clearviewhub9.cc
 127.0.0.1 clevernt.com
 127.0.0.1 clhctrk.com
 127.0.0.1 cli.linksynergy.com
@@ -6442,6 +6443,7 @@
 127.0.0.1 ds.serving-sys.com
 127.0.0.1 dsa.moatads.com
 127.0.0.1 dsbzk.comfortykive.xyz
+127.0.0.1 dsfdsfxcfddsf.blob.core.windows.net
 127.0.0.1 dsp-1.ogury.io
 127.0.0.1 dsp-creative.demandbase.com
 127.0.0.1 dsp-d.ants.vn
@@ -13510,6 +13512,7 @@
 127.0.0.1 securepubads.g.doubleclick.net
 127.0.0.1 securerr.com
 127.0.0.1 securerunner.com
+127.0.0.1 securesweep.pro
 127.0.0.1 securielite.com
 127.0.0.1 securisurf.com
 127.0.0.1 security.schwab-5.click
@@ -16870,6 +16873,7 @@
 127.0.0.1 www.961.com
 127.0.0.1 www.991abc.com
 127.0.0.1 www.a2uu36g43l.download
+127.0.0.1 www.aaaddedbenifits.com
 127.0.0.1 www.aagofwi.com
 127.0.0.1 www.aandgwright.plus.com
 127.0.0.1 www.aaringtone.com
@@ -17014,6 +17018,7 @@
 127.0.0.1 www.api.taboola.com
 127.0.0.1 www.apkfuuny.com
 127.0.0.1 www.apogara.plus.com
+127.0.0.1 www.appfoliio.com
 127.0.0.1 www.applelounge.com
 127.0.0.1 www.applicationwiki.com
 127.0.0.1 www.appliedsemantics.com
@@ -17106,6 +17111,7 @@
 127.0.0.1 www.bigsister.cxa.de
 127.0.0.1 www.billcarthy.f9.co.uk
 127.0.0.1 www.binarysystem4u.com
+127.0.0.1 www.bisselcommercial.com
 127.0.0.1 www.bitcoadz.io
 127.0.0.1 www.bitlocker.net
 127.0.0.1 www.bitmedia.io
@@ -17275,6 +17281,7 @@
 127.0.0.1 www.clownsong.com
 127.0.0.1 www.clubplanning.com
 127.0.0.1 www.coconutsport.com
+127.0.0.1 www.codeademy.com
 127.0.0.1 www.coin-ad.com
 127.0.0.1 www.coinad.com
 127.0.0.1 www.coinimp.com
@@ -17412,6 +17419,7 @@
 127.0.0.1 www.digisubmission.com
 127.0.0.1 www.digitalbigger.garden
 127.0.0.1 www.digitalcoachpro.name
+127.0.0.1 www.diperformancetransmissions.com
 127.0.0.1 www.directnetadvertising.net
 127.0.0.1 www.dirtyrhino.com
 127.0.0.1 www.djugoogs.com
@@ -17455,10 +17463,12 @@
 127.0.0.1 www.eelsoup.net
 127.0.0.1 www.ekkekkocapital.com
 127.0.0.1 www.elanactivewear.com
+127.0.0.1 www.elchavotortas.com
 127.0.0.1 www.electrobell.com
 127.0.0.1 www.elfralalo.com
 127.0.0.1 www.eljaleomedellin.com
 127.0.0.1 www.ellesalonhb.com
+127.0.0.1 www.elmerdiner.com
 127.0.0.1 www.emadesign.net
 127.0.0.1 www.emailspend.com
 127.0.0.1 www.emarketmakers.com
@@ -17467,6 +17477,7 @@
 127.0.0.1 www.entercasino.com
 127.0.0.1 www.entertainment-specials.com
 127.0.0.1 www.eqarati.com
+127.0.0.1 www.eqinenow.com
 127.0.0.1 www.eremplacementparts.com
 127.0.0.1 www.erincranor.com
 127.0.0.1 www.erspan.com
@@ -17801,7 +17812,9 @@
 127.0.0.1 www.jhsmiami.com
 127.0.0.1 www.jivox.com
 127.0.0.1 www.jiztini.com
+127.0.0.1 www.jjbenefitsguide.com
 127.0.0.1 www.jnhjf.com
+127.0.0.1 www.jobomg.com
 127.0.0.1 www.joinclap.com
 127.0.0.1 www.joinfx.net
 127.0.0.1 www.jolic2.com
@@ -17817,6 +17830,7 @@
 127.0.0.1 www.kahramananas.com
 127.0.0.1 www.karazah.com
 127.0.0.1 www.katch.ne.jp
+127.0.0.1 www.kccreamation.com
 127.0.0.1 www.keepass.com
 127.0.0.1 www.keepass.fr
 127.0.0.1 www.kencorporation.property
@@ -17956,6 +17970,7 @@
 127.0.0.1 www.mb01.com
 127.0.0.1 www.mb102.com
 127.0.0.1 www.mczbf.com
+127.0.0.1 www.mdarussellhobbs.com
 127.0.0.1 www.meantvictim.lat
 127.0.0.1 www.meatspin.biz
 127.0.0.1 www.meatspin.com
@@ -18036,6 +18051,7 @@
 127.0.0.1 www.myfreemp3player.com
 127.0.0.1 www.myfurnituresirplus.com
 127.0.0.1 www.mygreatrewards.com
+127.0.0.1 www.myguidedreaders.com
 127.0.0.1 www.myhucadvantage.com
 127.0.0.1 www.mylike.co.uk
 127.0.0.1 www.mylovecards.com
@@ -18115,6 +18131,7 @@
 127.0.0.1 www.ofimaniaweb.com
 127.0.0.1 www.ogopond.com
 127.0.0.1 www.oilbasics.com
+127.0.0.1 www.ointrest.com
 127.0.0.1 www.oix.com
 127.0.0.1 www.oletipmegroup.com
 127.0.0.1 www.olimpgokart.com
@@ -18137,6 +18154,7 @@
 127.0.0.1 www.oralse.ca
 127.0.0.1 www.oralse.cx
 127.0.0.1 www.orangesalonboise.com
+127.0.0.1 www.orchidfootspa.com
 127.0.0.1 www.originalicons.com
 127.0.0.1 www.otsserver.com
 127.0.0.1 www.ourfuckbook.com
@@ -18162,6 +18180,7 @@
 127.0.0.1 www.partsttown.com
 127.0.0.1 www.partycasino.com
 127.0.0.1 www.paseyourself.com
+127.0.0.1 www.pashcams.com
 127.0.0.1 www.patelshop.com
 127.0.0.1 www.pathforpoints.com
 127.0.0.1 www.paviro.cfd
@@ -18242,6 +18261,7 @@
 127.0.0.1 www.praktijkmariekehuisman.nl
 127.0.0.1 www.precisioncounter.com
 127.0.0.1 www.predictivadnetwork.com
+127.0.0.1 www.premiercountrymeats.com
 127.0.0.1 www.premiumbrandszonalibre.com
 127.0.0.1 www.premiumproductsonline.com
 127.0.0.1 www.presidency.site
@@ -18255,6 +18275,7 @@
 127.0.0.1 www.pro-partners.nl
 127.0.0.1 www.probabilidades.net
 127.0.0.1 www.probusinesshub.com
+127.0.0.1 www.proctou.com
 127.0.0.1 www.productresearchpanel.com
 127.0.0.1 www.producttestpanel.com
 127.0.0.1 www.proflashdata.com
@@ -18412,6 +18433,7 @@
 127.0.0.1 www.silcom.com
 127.0.0.1 www.silebah.com
 127.0.0.1 www.silentgateck.site
+127.0.0.1 www.silhouetteamerican.com
 127.0.0.1 www.silverboxcreativestudio.com
 127.0.0.1 www.simplecounter.net
 127.0.0.1 www.simpli.fi
@@ -18477,6 +18499,7 @@
 127.0.0.1 www.ssdede.com
 127.0.0.1 www.ssl2.in
 127.0.0.1 www.ssquire.plus.com
+127.0.0.1 www.stanthedonutman.com
 127.0.0.1 www.star-advertising.com
 127.0.0.1 www.startnewtab.com
 127.0.0.1 www.startupsforstartups.com
@@ -18645,6 +18668,7 @@
 127.0.0.1 www.tuningcentar.com
 127.0.0.1 www.turdgasm.com
 127.0.0.1 www.turn.com
+127.0.0.1 www.tuscanypointevillas.com
 127.0.0.1 www.tutka.net
 127.0.0.1 www.tutop.com
 127.0.0.1 www.tvccpt.com
