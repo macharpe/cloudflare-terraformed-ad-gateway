@@ -1,7 +1,7 @@
 # Combined ad-blocking domain list
 # Sources: adaway easylist
-# Generated: 2026-10-15 14:36:47 UTC
-# Total domains: 19222
+# Generated: 2026-11-15 16:44:43 UTC
+# Total domains: 19228
 #
 127.0.0.1 0.nextyourcontent.com
 127.0.0.1 00000.uno
@@ -3526,6 +3526,7 @@
 127.0.0.1 assets.tapad.com
 127.0.0.1 assets.vidora.com
 127.0.0.1 assetscdn.jivox.com
+127.0.0.1 assistance.app-claude-ai.online
 127.0.0.1 assistcom.fr
 127.0.0.1 assistjs.skimresources.com
 127.0.0.1 assoc-amazon.com
@@ -3726,6 +3727,7 @@
 127.0.0.1 balanced-clk.taptica.com
 127.0.0.1 balanced-collect.deltadna.net
 127.0.0.1 balanced-engage.deltadna.net
+127.0.0.1 balancemastercardgiftcard.com
 127.0.0.1 balancer.devtodev.com
 127.0.0.1 balancewreckpoint.com
 127.0.0.1 balkanwide-assistance.rs
@@ -6412,6 +6414,7 @@
 127.0.0.1 dra.amazon-adsystem.com
 127.0.0.1 draco-artgallery.wz.cz
 127.0.0.1 dragonfly-express.duckdns.org
+127.0.0.1 dragonfly-servic.duckdns.org
 127.0.0.1 dramatic-challenge.com
 127.0.0.1 dreammates.112.2o7.net
 127.0.0.1 drecentreshu.info
@@ -8022,6 +8025,7 @@
 127.0.0.1 gudja.iad-02.braze.com
 127.0.0.1 guerria-skateboard-tommy.tabrays.com
 127.0.0.1 guess.mediav.com
+127.0.0.1 guestenviteesign.vu
 127.0.0.1 guiaconsumidor.com
 127.0.0.1 guide2poker.com
 127.0.0.1 guidelon.fr
@@ -12796,6 +12800,7 @@
 127.0.0.1 res.mmstat.com
 127.0.0.1 res1.applovin.com
 127.0.0.1 resanium.com
+127.0.0.1 reschedulepack1029.com
 127.0.0.1 researchnow.com
 127.0.0.1 reseller.hitbox.com
 127.0.0.1 reselling-corp.com
@@ -14204,6 +14209,7 @@
 127.0.0.1 st.sageanalyst.net
 127.0.0.1 st.videojam.tv
 127.0.0.1 st1.hit.gemius.pl
+127.0.0.1 stablereealgift.com
 127.0.0.1 staceydodge.com
 127.0.0.1 stackadaptdisplay515602019759.s.moatpixel.com
 127.0.0.1 stackoverflow.xyz
